@@ -94,6 +94,31 @@
     
 //    chartView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
     [self.view addSubview:chartView];
+    
+    {
+        LineChartData *d = [LineChartData new];
+        d.xMin = 1;
+        d.xMax = 31;
+        d.title = @"The title for the legend";
+        d.color = [UIColor redColor];
+        d.itemCount = 10;
+        
+        NSMutableArray *vals = [NSMutableArray new];
+        for(NSUInteger i = 0; i < d.itemCount; ++i)
+            [vals addObject:@((rand() / (float)RAND_MAX) * (31 - 1) + 1)];
+        [vals sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [obj1 compare:obj2];
+        }];
+        d.getData = ^(NSUInteger item) {
+            float x = [vals[item] floatValue];
+            float y = powf(2, x / 7);
+            NSString *label1 = [NSString stringWithFormat:@"%d", item];
+            NSString *label2 = [NSString stringWithFormat:@"%f", y];
+            return [LineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        };
+        
+    
+    }
 }
 
 @end
