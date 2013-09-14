@@ -88,4 +88,6 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 
 ## Contact
 
+![Travis CI build status](https://api.travis-ci.org/mruegenberg/ios-linechart.png)
+
 Bug reports and pull requests are welcome! Contact me via e-mail or just by opening an issue on GitHub.
