@@ -2,7 +2,7 @@
 Interactive linecharts for the simplicity-loving iOS developer.
 
 You just want some linecharts, and Core Plot makes you think
-![fuuu](docs/rage.png)
+![fuuu](doc/rage.png?raw=true)
 
 Look no more! ios-linechart is here!
 
@@ -16,3 +16,5 @@ Look no more! ios-linechart is here!
 
 
 ## Screenshots
+* ![Screenshot 1](doc/screenshot1.png)
+* ![Screenshot 2](doc/screenshot2.png)
