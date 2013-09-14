@@ -28,19 +28,24 @@ Basic usage can be seen in the demo app contained in the repository.
 
 First, import the main header:
 
+```obj-c
     #import "LineChartView.h"
+```
     
-Each chart line is contained in a `LineChartData` object, which specifies a range of its data on the x axis, a color, a title and an `itemCount`, i.e the number of data points:
+Each chart line is contained in a `LineChartData` object, which specifies a range of its data on the x axis (`xMin` / `xMax`), a `color`, a `title` (which is displayed in the legend) and an `itemCount`, the number of data points:
 
+```obj-c
     LineChartData *d = [LineChartData new];
     d.xMin = 1;
     d.xMax = 31;
     d.title = @"The title for the legend";
     d.color = [UIColor redColor];
     d.itemCount = 10;
+```
     
-Additionally, each `LineChartData` object also has a `getData` property. This is simply a block that takes the number of the data point as an argument and returns `LineChartDataItem` objects, which wrap the individual data points:
+Additionally, each `LineChartData` object also has a `getData` property. This is simply a block that takes the number of a data point as its     argument and returns `LineChartDataItem` objects, which wrap the individual data points:
 
+```obj-c
     NSMutableArray *vals = [NSMutableArray new];
     for(NSUInteger i = 0; i < d.itemCount; ++i)
         [vals addObject:@((rand() / (float)RAND_MAX) * (31 - 1) + 1)];
@@ -54,13 +59,15 @@ Additionally, each `LineChartData` object also has a `getData` property. This is
         NSString *label2 = [NSString stringWithFormat:@"%f", y];
         return [LineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
     };
+```
     
-The `x` and `y` properties of `LineChartDataItem` are, obviously, the x and y values of the data point. `xLabel` is the text displayed on the x axis when the data point is selected, `dataLabel` is usually just a textual representation of the y value, and is displayed directly next to the data point when the user touches it.
+The `x` and `y` properties of `LineChartDataItem` are, obviously, the x and y values of the data point. `xLabel` is the text displayed on the x axis when the data point is selected, `dataLabel` is usually just a textual representation of the y value, and is displayed in a bubble directly next to the data point when the user touches it.
 
 Note that, to get a coherent chart, the x values for the items should be sorted. This will be the case anyway for most real-world data. 
 
 Finally, everything is packed up into a `LineChartView`:
 
+```obj-c
     LineChartView *chartView = [[LineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
     chartView.yMin = 0;
     chartView.yMax = powf(2, 31 / 7) + 0.5;
@@ -70,6 +77,7 @@ Finally, everything is packed up into a `LineChartView`:
     chartView.data = @[d];
 
     [self.view addSubview:chartView];
+```
     
 The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of labels which are placed along the y axis. `data` is an array of all `LineChartData` objects to use.
 
@@ -77,3 +85,7 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 ![Screenshot 1](doc/screenshot1.png)
 
 ![Screenshot 2](doc/screenshot2.png)
+
+## Contact
+
+Bug reports and pull requests are welcome! Contact me via e-mail or just by opening an issue on GitHub.
