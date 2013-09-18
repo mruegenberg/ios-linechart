@@ -91,7 +91,8 @@
     chartView.yMax = 6;
     chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0"];
     chartView.data = @[d1x,d2x];
-    
+//    chartView.drawsDataPointOrnaments = NO;
+
 //    chartView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
     [self.view addSubview:chartView];
     

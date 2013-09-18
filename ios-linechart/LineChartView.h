@@ -49,6 +49,7 @@ typedef LineChartDataItem *(^LineChartDataGetter)(NSUInteger item);
 @property float yMin;
 @property float yMax;
 @property (strong) NSArray *ySteps; // array of step names (NSString). At each step, a scale line is shown
+@property BOOL drawsDataPointOrnaments; // switch to turn of circles on data points
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
 

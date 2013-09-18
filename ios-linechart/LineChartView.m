@@ -90,6 +90,8 @@
         self.backgroundColor = [UIColor whiteColor];
         
         self.autoresizesSubviews = YES;
+
+        self.drawsDataPointOrnaments = YES;
     }
     return self;
 }
@@ -209,7 +211,7 @@
         }
         
         // draw data points
-        {
+        if (self.drawsDataPointOrnaments) {
             float xRangeLen = data.xMax - data.xMin;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
                 LineChartDataItem *datItem = data.getData(i);

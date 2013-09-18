@@ -79,7 +79,7 @@ Finally, everything is packed up into a `LineChartView`:
     [self.view addSubview:chartView];
 ```
     
-The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of labels which are placed along the y axis. `data` is an array of all `LineChartData` objects to use.
+The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of labels which are placed along the y axis. `data` is an array of all `LineChartData` objects to use. `drawsDataPointOrnaments` is a switch that determines whether circles are drawn around the actual data points.
 
 ## Screenshots
 ![Screenshot 1](doc/screenshot1.png)
