@@ -7,7 +7,7 @@
 //
 
 #import "LegendView.h"
-#import <objc-utils/UIKit+DrawingHelpers.h>
+#import "UIKit+DrawingHelpers.h"
 #import <CoreGraphics/CoreGraphics.h>
 
 @implementation LegendView

@@ -8,8 +8,6 @@
 
 #import "InfoView.h"
 #import "UIKit+DrawingHelpers.h"
-#import "NSDate+Additions.h"
-#import "UIKit+DrawingHelpers.h"
 
 
 @interface InfoView ()
