@@ -90,6 +90,7 @@
         self.backgroundColor = [UIColor whiteColor];
         
         self.autoresizesSubviews = YES;
+        self.contentMode = UIViewContentModeRedraw;
     }
     return self;
 }
