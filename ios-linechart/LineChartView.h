@@ -49,6 +49,8 @@ typedef LineChartDataItem *(^LineChartDataGetter)(NSUInteger item);
 @property float yMin;
 @property float yMax;
 @property (strong) NSArray *ySteps; // array of step names (NSString). At each step, a scale line is shown
+@property (strong) UIFont *scaleFont; // Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].
+
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
 
