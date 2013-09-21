@@ -117,7 +117,15 @@
             return [LineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
         
-    
+        LineChartView *chartView = [[LineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
+        chartView.yMin = 0;
+        chartView.yMax = powf(2, 31 / 7) + 0.5;
+        chartView.ySteps = @[@"0.0",
+                             [NSString stringWithFormat:@"%.02f", chartView.yMax / 2],
+                             [NSString stringWithFormat:@"%.02f", chartView.yMax]];
+        chartView.data = @[d];
+        
+        [self.view addSubview:chartView];
     }
 }
 
