@@ -54,6 +54,8 @@
 @property UIView *currentPosView;
 @property UILabel *xAxisLabel;
 
+- (BOOL)drawsAnyData;
+
 @end
 
 
@@ -91,6 +93,9 @@
         
         self.autoresizesSubviews = YES;
         self.contentMode = UIViewContentModeRedraw;
+
+        self.drawsDataPoints = YES;
+        self.drawsDataLines  = YES;
     }
     return self;
 }
@@ -173,14 +178,18 @@
         i++;
     }
     CGContextRestoreGState(c);
+
+
+    if (!self.drawsAnyData) {
+        NSLog(@"You configured LineChartView to draw neither lines nor data points. No data will be visible. This is most likely not what you wanted. (But we aren't judging you, so here's your chart background.)");
+    } // warn if no data will be drawn
     
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - Y_AXIS_SPACE;
     CGFloat xStart = PADDING + Y_AXIS_SPACE;
     CGFloat yStart = PADDING;
     CGFloat yRangeLen = self.yMax - self.yMin;
     for(LineChartData *data in self.data) {
-        // draw actual chart data
-        {
+        if (self.drawsDataLines) {
             float xRangeLen = data.xMax - data.xMin;
             if(data.itemCount >= 2) {
                 LineChartDataItem *datItem = data.getData(0);
@@ -207,10 +216,8 @@
                 
                 CGPathRelease(path);
             }
-        }
-        
-        // draw data points
-        {
+        } // draw actual chart data
+        if (self.drawsDataPoints) {
             float xRangeLen = data.xMax - data.xMin;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
                 LineChartDataItem *datItem = data.getData(i);
@@ -222,8 +229,8 @@
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
                 [[UIColor whiteColor] setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 2, yVal - 2, 4, 4));
-            }
-        }
+            } // for
+        } // draw data points
     }
 }
 
@@ -318,6 +325,13 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [self hideIndicator];
+}
+
+
+#pragma mark Helper methods
+
+- (BOOL)drawsAnyData {
+    return self.drawsDataPoints || self.drawsDataLines;
 }
 
 @end
