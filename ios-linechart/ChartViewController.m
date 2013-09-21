@@ -91,8 +91,11 @@
     chartView.yMax = 6;
     chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0"];
     chartView.data = @[d1x,d2x];
-    
-//    chartView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+
+//    chartView.drawsDataPoints = NO; // Uncomment to turn off circles at data points.
+//    chartView.drawsDataLines = NO; // Uncomment to turn off lines connecting data points.
+//    chartView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0]; // Uncomment for custom background color.
+
     [self.view addSubview:chartView];
     
     {
