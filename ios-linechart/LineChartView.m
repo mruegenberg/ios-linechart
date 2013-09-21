@@ -9,6 +9,7 @@
 #import "LineChartView.h"
 #import "LegendView.h"
 #import "InfoView.h"
+#import <NSArray+Functional/NSArray+Functional.h>
 
 @interface LineChartDataItem ()
 
@@ -58,7 +59,6 @@
 
 
 #define X_AXIS_SPACE 15
-#define Y_AXIS_SPACE 20
 #define PADDING 10
 
 
@@ -88,6 +88,7 @@
         [self addSubview:self.xAxisLabel];
         
         self.backgroundColor = [UIColor whiteColor];
+        self.scaleFont = [UIFont systemFontOfSize:10.0];
         
         self.autoresizesSubviews = YES;
     }
@@ -153,19 +154,18 @@
     
     // draw scale and horizontal lines
     NSUInteger i = 0;
-    UIFont *scaleFont = [UIFont systemFontOfSize:10];
     CGContextSaveGState(c);
     CGContextSetLineWidth(c, 1.0);
     NSUInteger cnt = [self.ySteps count];
     for(NSString *step in self.ySteps) {
         [[UIColor grayColor] set];
-        CGFloat h = [scaleFont lineHeight];
+        CGFloat h = [self.scaleFont lineHeight];
         CGFloat y = PADDING + heightPerStep * (cnt - 1 - i);
-        [step drawInRect:CGRectMake(PADDING, y - h / 2, Y_AXIS_SPACE - 6, h) withFont:scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
+        [step drawInRect:CGRectMake(PADDING, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
         
         [[UIColor colorWithWhite:0.9 alpha:1.0] set];
         CGContextSetLineDash(c, 0, dashedPattern, 2);
-        CGContextMoveToPoint(c, PADDING + Y_AXIS_SPACE, round(y) + 0.5);
+        CGContextMoveToPoint(c, PADDING + self.yAxisLabelsWidth, round(y) + 0.5);
         CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(y) + 0.5);
         CGContextStrokePath(c);
         
@@ -173,8 +173,8 @@
     }
     CGContextRestoreGState(c);
     
-    CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - Y_AXIS_SPACE;
-    CGFloat xStart = PADDING + Y_AXIS_SPACE;
+    CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
+    CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;
     CGFloat yRangeLen = self.yMax - self.yMin;
     for(LineChartData *data in self.data) {
@@ -233,12 +233,12 @@
     }
     
     CGPoint pos = [touch locationInView:self];
-    CGFloat xStart = PADDING + Y_AXIS_SPACE;
+    CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;
     CGFloat yRangeLen = self.yMax - self.yMin;
     CGFloat xPos = pos.x - xStart;
     CGFloat yPos = pos.y - yStart;
-    CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - Y_AXIS_SPACE;
+    CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
     
     LineChartDataItem *closest = nil;
@@ -317,6 +317,18 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [self hideIndicator];
+}
+
+#pragma mark Helper methods
+
+// TODO: This should really be a cached value. Invalidated iff ySteps changes.
+- (CGFloat)yAxisLabelsWidth {
+    NSNumber *requiredWidth = [[self.ySteps mapUsingBlock:^id(id obj) {
+        NSString *label = (NSString*)obj;
+        CGSize labelSize = [label sizeWithFont:self.scaleFont];
+        return @(labelSize.width); // Literal NSNumber Conversion
+    }] valueForKeyPath:@"@max.self"]; // gets biggest object. Yeah, NSKeyValueCoding. Deal with it.
+    return [requiredWidth floatValue] + PADDING;
 }
 
 @end
