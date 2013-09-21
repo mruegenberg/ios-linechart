@@ -44,12 +44,13 @@ typedef LineChartDataItem *(^LineChartDataGetter)(NSUInteger item);
 
 @interface LineChartView : UIView
 
-@property (nonatomic, strong) NSArray *data; // array of `LineChartData` objects, one for each line
+@property (nonatomic, strong) NSArray *data; // Array of `LineChartData` objects, one for each line.
 
 @property float yMin;
 @property float yMax;
-@property (strong) NSArray *ySteps; // array of step names (NSString). At each step, a scale line is shown
-@property BOOL drawsDataPointOrnaments; // switch to turn of circles on data points
+@property (strong) NSArray *ySteps; // Array of step names (NSString). At each step, a scale line is shown.
+@property BOOL drawsDataPoints; // Switch to turn off circles on data points. On by default.
+@property BOOL drawsDataLines; // Switch to turn off lines connecting data points. On by default.
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
 
