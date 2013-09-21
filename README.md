@@ -14,13 +14,26 @@ Search no more! ios-linechart is here!
 
 ## Installation
 
+### CocoaPods
 The best way to get ios-linechart is to use [CocoaPods](http://cocoapods.org/). 
 
-If, for some reason, you don't want that, just copy the following files into your project:
+### Without CocoaPods
+
+If, for some reason, you don't want that, copy the following files into your project:
 
 * `LegendView.h`, `LegendView.m`
 * `LineChartView.h`, `LineChartView.m`
 * `InfoView.h`, `InfoView.m`
+
+Additionally, you will need to get some dependencies from the [objc-utils](https://github.com/mruegenberg/objc-utils) project:
+
+* `UIKit+DrawingHelpers.{h,m}` (found in `UIKit/Drawing/`)
+
+Just copy these into you project as well.
+
+ios-linechart uses Core Graphics, so you'll need to add `CoreGraphics.framework` to your project.
+
+
 
 ## Usage
 
