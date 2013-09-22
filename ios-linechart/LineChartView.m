@@ -9,7 +9,7 @@
 #import "LineChartView.h"
 #import "LegendView.h"
 #import "InfoView.h"
-#import <NSArray+Functional/NSArray+Functional.h>
+#import <objc-utils/NSArray+FPAdditions.h>
 
 @interface LineChartDataItem ()
 
@@ -323,7 +323,7 @@
 
 // TODO: This should really be a cached value. Invalidated iff ySteps changes.
 - (CGFloat)yAxisLabelsWidth {
-    NSNumber *requiredWidth = [[self.ySteps mapUsingBlock:^id(id obj) {
+    NSNumber *requiredWidth = [[self.ySteps mapWithBlock:^id(id obj) {
         NSString *label = (NSString*)obj;
         CGSize labelSize = [label sizeWithFont:self.scaleFont];
         return @(labelSize.width); // Literal NSNumber Conversion

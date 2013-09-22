@@ -20,6 +20,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency 'objc-utils', '~> 0.3.3'
-
-  s.dependency 'NSArray+Functional'
 end
