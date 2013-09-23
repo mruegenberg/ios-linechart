@@ -89,7 +89,7 @@
     LineChartView *chartView = [[LineChartView alloc] initWithFrame:CGRectMake(20, 400, 500, 300)];
     chartView.yMin = 0;
     chartView.yMax = 6;
-    chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"6.0"];
+    chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"A big label at 6.0"];
     chartView.data = @[d1x,d2x];
 
 //    chartView.drawsDataPoints = NO; // Uncomment to turn off circles at data points.
