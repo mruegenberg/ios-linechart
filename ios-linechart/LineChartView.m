@@ -154,29 +154,50 @@
     
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
     
-    CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] == 0 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
+    CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
+    CGFloat xStart = PADDING + self.yAxisLabelsWidth;
+    CGFloat yStart = PADDING;
     
     static CGFloat dashedPattern[] = {4,2};
     
     // draw scale and horizontal lines
+    CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] == 0 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
+    
     NSUInteger i = 0;
     CGContextSaveGState(c);
     CGContextSetLineWidth(c, 1.0);
-    NSUInteger cnt = [self.ySteps count];
+    NSUInteger yCnt = [self.ySteps count];
     for(NSString *step in self.ySteps) {
         [[UIColor grayColor] set];
         CGFloat h = [self.scaleFont lineHeight];
-        CGFloat y = PADDING + heightPerStep * (cnt - 1 - i);
-        [step drawInRect:CGRectMake(PADDING, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
+        CGFloat y = yStart + heightPerStep * (yCnt - 1 - i);
+        [step drawInRect:CGRectMake(yStart, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
         
         [[UIColor colorWithWhite:0.9 alpha:1.0] set];
         CGContextSetLineDash(c, 0, dashedPattern, 2);
-        CGContextMoveToPoint(c, PADDING + self.yAxisLabelsWidth, round(y) + 0.5);
+        CGContextMoveToPoint(c, xStart, round(y) + 0.5);
         CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(y) + 0.5);
         CGContextStrokePath(c);
         
         i++;
     }
+    
+    NSUInteger xCnt = self.xStepsCount;
+    if(xCnt > 1) {
+        CGFloat widthPerStep = availableWidth / (xCnt - 1);
+        
+        [[UIColor grayColor] set];
+        for(NSUInteger i = 0; i < xCnt; ++i) {
+            NSLog(@"i: %d x: %d", i, xCnt);
+            CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
+            
+            [[UIColor colorWithWhite:0.9 alpha:1.0] set];
+            CGContextMoveToPoint(c, round(x) + 0.5, PADDING);
+            CGContextAddLineToPoint(c, round(x) + 0.5, yStart + availableHeight);
+            CGContextStrokePath(c);
+        }
+    }
+    
     CGContextRestoreGState(c);
 
 
@@ -184,9 +205,6 @@
         NSLog(@"You configured LineChartView to draw neither lines nor data points. No data will be visible. This is most likely not what you wanted. (But we aren't judging you, so here's your chart background.)");
     } // warn if no data will be drawn
     
-    CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
-    CGFloat xStart = PADDING + self.yAxisLabelsWidth;
-    CGFloat yStart = PADDING;
     CGFloat yRangeLen = self.yMax - self.yMin;
     for(LineChartData *data in self.data) {
         if (self.drawsDataLines) {
