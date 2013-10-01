@@ -126,6 +126,7 @@
         chartView.ySteps = @[@"0.0",
                              [NSString stringWithFormat:@"%.02f", chartView.yMax / 2],
                              [NSString stringWithFormat:@"%.02f", chartView.yMax]];
+        chartView.xStepsCount = 5;
         chartView.data = @[d];
         
         [self.view addSubview:chartView];
