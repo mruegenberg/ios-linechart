@@ -1,23 +1,23 @@
 //
-//  LandscapeEventDetailView.m
+//  MRInfoView.m
 //  Classes
 //
 //  Created by Marcel Ruegenberg on 19.11.09.
 //  Copyright 2009 Dustlab. All rights reserved.
 //
 
-#import "InfoView.h"
+#import "MRInfoView.h"
 #import "UIKit+DrawingHelpers.h"
 
 
-@interface InfoView ()
+@interface MRInfoView ()
 
 - (void)recalculateFrame;
 
 @end
 
 
-@implementation InfoView
+@implementation MRInfoView
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {		

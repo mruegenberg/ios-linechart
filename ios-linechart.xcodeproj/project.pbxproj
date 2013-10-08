@@ -18,10 +18,10 @@
 		1C04F89317AC0F5A00F8A543 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C04F89217AC0F5A00F8A543 /* Default-568h@2x.png */; };
 		1C04F89617AC0F5A00F8A543 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C04F89417AC0F5A00F8A543 /* MainStoryboard.storyboard */; };
 		1C04F89917AC0F5A00F8A543 /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F89817AC0F5A00F8A543 /* ChartViewController.m */; };
-		1C04F8A317AC0FA500F8A543 /* LegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F8A017AC0FA500F8A543 /* LegendView.m */; };
-		1C04F8A417AC0FA500F8A543 /* LineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F8A217AC0FA500F8A543 /* LineChartView.m */; };
-		1C04F8A717AC402600F8A543 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F8A617AC402600F8A543 /* InfoView.m */; };
 		C4098B43BD504D33BFA4645B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E88FE8D4A4A24E6E99D658EA /* libPods.a */; };
+		1C04F8A317AC0FA500F8A543 /* MRLegendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F8A017AC0FA500F8A543 /* MRLegendView.m */; };
+		1C04F8A417AC0FA500F8A543 /* MRLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F8A217AC0FA500F8A543 /* MRLineChartView.m */; };
+		1C04F8A717AC402600F8A543 /* MRInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F8A617AC402600F8A543 /* MRInfoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,12 +41,12 @@
 		1C04F89517AC0F5A00F8A543 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		1C04F89717AC0F5A00F8A543 /* ChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewController.h; sourceTree = "<group>"; };
 		1C04F89817AC0F5A00F8A543 /* ChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewController.m; sourceTree = "<group>"; };
-		1C04F89F17AC0FA500F8A543 /* LegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendView.h; sourceTree = "<group>"; };
-		1C04F8A017AC0FA500F8A543 /* LegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendView.m; sourceTree = "<group>"; };
-		1C04F8A117AC0FA500F8A543 /* LineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChartView.h; sourceTree = "<group>"; };
-		1C04F8A217AC0FA500F8A543 /* LineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChartView.m; sourceTree = "<group>"; };
-		1C04F8A517AC402600F8A543 /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
-		1C04F8A617AC402600F8A543 /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
+		1C04F89F17AC0FA500F8A543 /* MRLegendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRLegendView.h; sourceTree = "<group>"; };
+		1C04F8A017AC0FA500F8A543 /* MRLegendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRLegendView.m; sourceTree = "<group>"; };
+		1C04F8A117AC0FA500F8A543 /* MRLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRLineChartView.h; sourceTree = "<group>"; };
+		1C04F8A217AC0FA500F8A543 /* MRLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRLineChartView.m; sourceTree = "<group>"; };
+		1C04F8A517AC402600F8A543 /* MRInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRInfoView.h; sourceTree = "<group>"; };
+		1C04F8A617AC402600F8A543 /* MRInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRInfoView.m; sourceTree = "<group>"; };
 		E763E74E5B5048B682038C66 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E88FE8D4A4A24E6E99D658EA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,12 +98,12 @@
 		1C04F88217AC0F5A00F8A543 /* ios-linechart */ = {
 			isa = PBXGroup;
 			children = (
-				1C04F89F17AC0FA500F8A543 /* LegendView.h */,
-				1C04F8A017AC0FA500F8A543 /* LegendView.m */,
-				1C04F8A117AC0FA500F8A543 /* LineChartView.h */,
-				1C04F8A217AC0FA500F8A543 /* LineChartView.m */,
-				1C04F8A517AC402600F8A543 /* InfoView.h */,
-				1C04F8A617AC402600F8A543 /* InfoView.m */,
+				1C04F89F17AC0FA500F8A543 /* MRLegendView.h */,
+				1C04F8A017AC0FA500F8A543 /* MRLegendView.m */,
+				1C04F8A117AC0FA500F8A543 /* MRLineChartView.h */,
+				1C04F8A217AC0FA500F8A543 /* MRLineChartView.m */,
+				1C04F8A517AC402600F8A543 /* MRInfoView.h */,
+				1C04F8A617AC402600F8A543 /* MRInfoView.m */,
 				1C04F88B17AC0F5A00F8A543 /* ChartAppDelegate.h */,
 				1C04F88C17AC0F5A00F8A543 /* ChartAppDelegate.m */,
 				1C04F89417AC0F5A00F8A543 /* MainStoryboard.storyboard */,
@@ -231,9 +231,9 @@
 				1C04F88917AC0F5A00F8A543 /* main.m in Sources */,
 				1C04F88D17AC0F5A00F8A543 /* ChartAppDelegate.m in Sources */,
 				1C04F89917AC0F5A00F8A543 /* ChartViewController.m in Sources */,
-				1C04F8A317AC0FA500F8A543 /* LegendView.m in Sources */,
-				1C04F8A417AC0FA500F8A543 /* LineChartView.m in Sources */,
-				1C04F8A717AC402600F8A543 /* InfoView.m in Sources */,
+				1C04F8A317AC0FA500F8A543 /* MRLegendView.m in Sources */,
+				1C04F8A417AC0FA500F8A543 /* MRLineChartView.m in Sources */,
+				1C04F8A717AC402600F8A543 /* MRInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
