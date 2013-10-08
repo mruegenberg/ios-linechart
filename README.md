@@ -21,9 +21,9 @@ The best way to get ios-linechart is to use [CocoaPods](http://cocoapods.org/).
 
 If, for some reason, you don't want that, copy the following files into your project:
 
-* `LegendView.h`, `LegendView.m`
-* `LineChartView.h`, `LineChartView.m`
-* `InfoView.h`, `InfoView.m`
+* `MRLegendView.h`, `MRLegendView.m`
+* `MRLineChartView.h`, `MRLineChartView.m`
+* `MRInfoView.h`, `MRInfoView.m`
 
 Additionally, you will need to get some dependencies from the [objc-utils](https://github.com/mruegenberg/objc-utils) project:
 
@@ -42,13 +42,13 @@ Basic usage can be seen in the demo app contained in the repository.
 First, import the main header:
 
 ```obj-c
-    #import "LineChartView.h"
+    #import "MRLineChartView.h"
 ```
     
-Each chart line is contained in a `LineChartData` object, which specifies a range of its data on the x axis (`xMin` / `xMax`), a `color`, a `title` (which is displayed in the legend) and an `itemCount`, the number of data points:
+Each chart line is contained in a `MRLineChartData` object, which specifies a range of its data on the x axis (`xMin` / `xMax`), a `color`, a `title` (which is displayed in the legend) and an `itemCount`, the number of data points:
 
 ```obj-c
-    LineChartData *d = [LineChartData new];
+    MRLineChartData *d = [MRLineChartData new];
     d.xMin = 1;
     d.xMax = 31;
     d.title = @"The title for the legend";
@@ -56,12 +56,13 @@ Each chart line is contained in a `LineChartData` object, which specifies a rang
     d.itemCount = 10;
 ```
     
-Additionally, each `LineChartData` object also has a `getData` property. This is simply a block that takes the number of a data point as its     argument and returns `LineChartDataItem` objects, which wrap the individual data points:
+Additionally, each `MRLineChartData` object also has a `getData` property. This is simply a block that takes the number of a data point as its     argument and returns `MRLineChartDataItem` objects, which wrap the individual data points:
 
 ```obj-c
     NSMutableArray *vals = [NSMutableArray new];
-    for(NSUInteger i = 0; i < d.itemCount; ++i)
+    for(NSUInteger i = 0; i < d.itemCount; ++i) {
         [vals addObject:@((rand() / (float)RAND_MAX) * (31 - 1) + 1)];
+    }
     [vals sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [obj1 compare:obj2];
     }];
@@ -70,18 +71,18 @@ Additionally, each `LineChartData` object also has a `getData` property. This is
         float y = powf(2, x / 7);
         NSString *label1 = [NSString stringWithFormat:@"%d", item];
         NSString *label2 = [NSString stringWithFormat:@"%f", y];
-        return [LineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        return [MRLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
     };
 ```
     
-The `x` and `y` properties of `LineChartDataItem` are, obviously, the x and y values of the data point. `xLabel` is the text displayed on the x axis when the data point is selected, `dataLabel` is usually just a textual representation of the y value, and is displayed in a bubble directly next to the data point when the user touches it.
+The `x` and `y` properties of `MRLineChartDataItem` are, obviously, the x and y values of the data point. `xLabel` is the text displayed on the x axis when the data point is selected, `dataLabel` is usually just a textual representation of the y value, and is displayed in a bubble directly next to the data point when the user touches it.
 
 Note that, to get a coherent chart, the x values for the items should be sorted. This will be the case anyway for most real-world data. 
 
-Finally, everything is packed up into a `LineChartView`:
+Finally, everything is packed up into a `MRLineChartView`:
 
 ```obj-c
-    LineChartView *chartView = [[LineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
+    MRLineChartView *chartView = [[MRLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
     chartView.yMin = 0;
     chartView.yMax = powf(2, 31 / 7) + 0.5;
     chartView.ySteps = @[@"0.0",
