@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '5.0'
 
-  s.source_files = 'ios-linechart/LegendView.{h,m}', 'ios-linechart/LineChartView.{h,m}', 'ios-linechart/InfoView.{h,m}'
+  s.source_files = 'ios-linechart/MRLegendView.{h,m}', 'ios-linechart/MRLineChartView.{h,m}', 'ios-linechart/MRInfoView.{h,m}'
 
   s.frameworks = 'CoreFoundation', 'UIKit', 'CoreGraphics'
 

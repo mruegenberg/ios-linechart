@@ -1,16 +1,16 @@
 //
-//  LegendView.m
+//  MRLegendView.m
 //  ios-linechart
 //
 //  Created by Marcel Ruegenberg on 02.08.13.
 //  Copyright (c) 2013 Marcel Ruegenberg. All rights reserved.
 //
 
-#import "LegendView.h"
+#import "MRLegendView.h"
 #import "UIKit+DrawingHelpers.h"
 #import <CoreGraphics/CoreGraphics.h>
 
-@implementation LegendView
+@implementation MRLegendView
 @synthesize titlesFont=_titlesFont;
 
 #define COLORPADDING 15
