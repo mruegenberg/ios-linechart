@@ -21,9 +21,9 @@ The best way to get ios-linechart is to use [CocoaPods](http://cocoapods.org/).
 
 If, for some reason, you don't want that, copy the following files into your project:
 
-* `MRLegendView.h`, `MRLegendView.m`
-* `MRLineChartView.h`, `MRLineChartView.m`
-* `MRInfoView.h`, `MRInfoView.m`
+* `LCLegendView.h`, `LCLegendView.m`
+* `LCLineChartView.h`, `LCLineChartView.m`
+* `LCInfoView.h`, `LCInfoView.m`
 
 Additionally, you will need to get some dependencies from the [objc-utils](https://github.com/mruegenberg/objc-utils) project:
 
@@ -42,13 +42,14 @@ Basic usage can be seen in the demo app contained in the repository.
 First, import the main header:
 
 ```obj-c
-    #import "MRLineChartView.h"
+    #import "LCLineChartView.h"
+```
 ```
     
-Each chart line is contained in a `MRLineChartData` object, which specifies a range of its data on the x axis (`xMin` / `xMax`), a `color`, a `title` (which is displayed in the legend) and an `itemCount`, the number of data points:
+Each chart line is contained in a `LCLineChartData` object, which specifies a range of its data on the x axis (`xMin` / `xMax`), a `color`, a `title` (which is displayed in the legend) and an `itemCount`, the number of data points:
 
 ```obj-c
-    MRLineChartData *d = [MRLineChartData new];
+    LCLineChartData *d = [LCLineChartData new];
     d.xMin = 1;
     d.xMax = 31;
     d.title = @"The title for the legend";
@@ -56,7 +57,7 @@ Each chart line is contained in a `MRLineChartData` object, which specifies a ra
     d.itemCount = 10;
 ```
     
-Additionally, each `MRLineChartData` object also has a `getData` property. This is simply a block that takes the number of a data point as its     argument and returns `MRLineChartDataItem` objects, which wrap the individual data points:
+Additionally, each `LCLineChartData` object also has a `getData` property. This is simply a block that takes the number of a data point as its     argument and returns `LCLineChartDataItem` objects, which wrap the individual data points:
 
 ```obj-c
     NSMutableArray *vals = [NSMutableArray new];
@@ -71,18 +72,18 @@ Additionally, each `MRLineChartData` object also has a `getData` property. This 
         float y = powf(2, x / 7);
         NSString *label1 = [NSString stringWithFormat:@"%d", item];
         NSString *label2 = [NSString stringWithFormat:@"%f", y];
-        return [MRLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+        return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
     };
 ```
     
-The `x` and `y` properties of `MRLineChartDataItem` are, obviously, the x and y values of the data point. `xLabel` is the text displayed on the x axis when the data point is selected, `dataLabel` is usually just a textual representation of the y value, and is displayed in a bubble directly next to the data point when the user touches it.
+The `x` and `y` properties of `LCLineChartDataItem` are, obviously, the x and y values of the data point. `xLabel` is the text displayed on the x axis when the data point is selected, `dataLabel` is usually just a textual representation of the y value, and is displayed in a bubble directly next to the data point when the user touches it.
 
 Note that, to get a coherent chart, the x values for the items should be sorted. This will be the case anyway for most real-world data. 
 
-Finally, everything is packed up into a `MRLineChartView`:
+Finally, everything is packed up into a `LCLineChartView`:
 
 ```obj-c
-    MRLineChartView *chartView = [[MRLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
+    LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
     chartView.yMin = 0;
     chartView.yMax = powf(2, 31 / 7) + 0.5;
     chartView.ySteps = @[@"0.0",

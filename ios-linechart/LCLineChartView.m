@@ -1,17 +1,17 @@
 //
-//  MRLineChartView.m
+//  LCLineChartView.m
 //  
 //
 //  Created by Marcel Ruegenberg on 02.08.13.
 //
 //
 
-#import "MRLineChartView.h"
-#import "MRLegendView.h"
-#import "MRInfoView.h"
+#import "LCLineChartView.h"
+#import "LCLegendView.h"
+#import "LCInfoView.h"
 #import <objc-utils/NSArray+FPAdditions.h>
 
-@interface MRLineChartDataItem ()
+@interface LCLineChartDataItem ()
 
 @property (readwrite) float x; // should be within the x range
 @property (readwrite) float y; // should be within the y range
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation MRLineChartDataItem
+@implementation LCLineChartDataItem
 
 - (id)initWithhX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
     if((self = [super init])) {
@@ -34,24 +34,24 @@
     return self;
 }
 
-+ (MRLineChartDataItem *)dataItemWithX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
-    return [[MRLineChartDataItem alloc] initWithhX:x y:y xLabel:xLabel dataLabel:dataLabel];
++ (LCLineChartDataItem *)dataItemWithX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
+    return [[LCLineChartDataItem alloc] initWithhX:x y:y xLabel:xLabel dataLabel:dataLabel];
 }
 
 @end
 
 
 
-@implementation MRLineChartData
+@implementation LCLineChartData
 
 @end
 
 
 
-@interface MRLineChartView ()
+@interface LCLineChartView ()
 
-@property MRLegendView *legendView;
-@property MRInfoView *infoView;
+@property LCLegendView *legendView;
+@property LCInfoView *infoView;
 @property UIView *currentPosView;
 @property UILabel *xAxisLabel;
 
@@ -64,39 +64,50 @@
 #define PADDING 10
 
 
-@implementation MRLineChartView
+@implementation LCLineChartView
 @synthesize data=_data;
+
+- (void)setDefaultValues {
+    self.currentPosView = [[UIView alloc] initWithFrame:CGRectMake(PADDING, PADDING, 1 / self.contentScaleFactor, 50)];
+    self.currentPosView.backgroundColor = [UIColor colorWithRed:0.7 green:0.0 blue:0.0 alpha:1.0];
+    self.currentPosView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.currentPosView.alpha = 0.0;
+    [self addSubview:self.currentPosView];
+    
+    self.legendView = [[LCLegendView alloc] init];
+    self.legendView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    self.legendView.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.legendView];
+    
+    self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.xAxisLabel.font = [UIFont boldSystemFontOfSize:10];
+    self.xAxisLabel.textColor = [UIColor grayColor];
+    self.xAxisLabel.textAlignment = NSTextAlignmentCenter;
+    self.xAxisLabel.alpha = 0.0;
+    self.xAxisLabel.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.xAxisLabel];
+    
+    self.backgroundColor = [UIColor whiteColor];
+    self.scaleFont = [UIFont systemFontOfSize:10.0];
+    
+    self.autoresizesSubviews = YES;
+    self.contentMode = UIViewContentModeRedraw;
+    
+    self.drawsDataPoints = YES;
+    self.drawsDataLines  = YES;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if((self = [super initWithCoder:aDecoder])) {
+        [self setDefaultValues];
+    }
+    return self;
+}
 
 - (id)initWithFrame:(CGRect)frame {
     if((self = [super initWithFrame:frame])) {
-        self.currentPosView = [[UIView alloc] initWithFrame:CGRectMake(PADDING, PADDING, 1 / self.contentScaleFactor, 50)];
-        self.currentPosView.backgroundColor = [UIColor colorWithRed:0.7 green:0.0 blue:0.0 alpha:1.0];
-        self.currentPosView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        self.currentPosView.alpha = 0.0;
-        [self addSubview:self.currentPosView];
-        
-        self.legendView = [[MRLegendView alloc] initWithFrame:CGRectMake(frame.size.width - 50 - 10, 10, 50, 30)];
-        self.legendView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-        self.legendView.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.legendView];
-        
-        self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-        self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        self.xAxisLabel.font = [UIFont boldSystemFontOfSize:10];
-        self.xAxisLabel.textColor = [UIColor grayColor];
-        self.xAxisLabel.textAlignment = NSTextAlignmentCenter;
-        self.xAxisLabel.alpha = 0.0;
-        self.xAxisLabel.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.xAxisLabel];
-        
-        self.backgroundColor = [UIColor whiteColor];
-        self.scaleFont = [UIFont systemFontOfSize:10.0];
-        
-        self.autoresizesSubviews = YES;
-        self.contentMode = UIViewContentModeRedraw;
-
-        self.drawsDataPoints = YES;
-        self.drawsDataLines  = YES;
+        [self setDefaultValues];
     }
     return self;
 }
@@ -136,9 +147,11 @@
     if(data != _data) {
         NSMutableArray *titles = [NSMutableArray arrayWithCapacity:[data count]];
         NSMutableDictionary *colors = [NSMutableDictionary dictionaryWithCapacity:[data count]];
-        for(MRLineChartData *dat in data) {
-            [titles addObject:dat.title];
-            [colors setObject:dat.color forKey:dat.title];
+        for(LCLineChartData *dat in data) {
+            NSString *key = dat.title;
+            if(key == nil) key = @"";
+            [titles addObject:key];
+            [colors setObject:dat.color forKey:key];
         }
         self.legendView.titles = titles;
         self.legendView.colors = colors;
@@ -206,17 +219,17 @@
     } // warn if no data will be drawn
     
     CGFloat yRangeLen = self.yMax - self.yMin;
-    for(MRLineChartData *data in self.data) {
+    for(LCLineChartData *data in self.data) {
         if (self.drawsDataLines) {
             float xRangeLen = data.xMax - data.xMin;
             if(data.itemCount >= 2) {
-                MRLineChartDataItem *datItem = data.getData(0);
+                LCLineChartDataItem *datItem = data.getData(0);
                 CGMutablePathRef path = CGPathCreateMutable();
                 CGPathMoveToPoint(path, NULL,
                                   xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth),
                                   yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight));
                 for(NSUInteger i = 1; i < data.itemCount; ++i) {
-                    MRLineChartDataItem *datItem = data.getData(i);
+                    LCLineChartDataItem *datItem = data.getData(i);
                     CGPathAddLineToPoint(path, NULL,
                                          xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth),
                                          yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight));
@@ -238,7 +251,7 @@
         if (self.drawsDataPoints) {
             float xRangeLen = data.xMax - data.xMin;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
-                MRLineChartDataItem *datItem = data.getData(i);
+                LCLineChartDataItem *datItem = data.getData(i);
                 CGFloat xVal = xStart + round((xRangeLen == 0 ? 0.5 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
                 CGFloat yVal = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
                 [self.backgroundColor setFill];
@@ -254,7 +267,7 @@
 
 - (void)showIndicatorForTouch:(UITouch *)touch {
     if(! self.infoView) {
-        self.infoView = [[MRInfoView alloc] init];
+        self.infoView = [[LCInfoView alloc] init];
         [self addSubview:self.infoView];
     }
     
@@ -267,15 +280,15 @@
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
     
-    MRLineChartDataItem *closest = nil;
+    LCLineChartDataItem *closest = nil;
     float minDist = FLT_MAX;
     float minDistY = FLT_MAX;
     CGPoint closestPos = CGPointZero;
     
-    for(MRLineChartData *data in self.data) {
+    for(LCLineChartData *data in self.data) {
         float xRangeLen = data.xMax - data.xMin;
         for(NSUInteger i = 0; i < data.itemCount; ++i) {
-            MRLineChartDataItem *datItem = data.getData(i);
+            LCLineChartDataItem *datItem = data.getData(i);
             CGFloat xVal = round((xRangeLen == 0 ? 0.5 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
             CGFloat yVal = round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
             

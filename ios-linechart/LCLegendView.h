@@ -1,5 +1,5 @@
 //
-//  MRLegendView.h
+//  LCLegendView.h
 //  ios-linechart
 //
 //  Created by Marcel Ruegenberg on 02.08.13.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MRLegendView : UIView
+@interface LCLegendView : UIView
 
 @property (nonatomic, strong) UIFont *titlesFont;
 @property (strong) NSArray *titles;

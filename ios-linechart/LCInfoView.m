@@ -1,23 +1,23 @@
 //
-//  MRInfoView.m
+//  LCInfoView.m
 //  Classes
 //
 //  Created by Marcel Ruegenberg on 19.11.09.
 //  Copyright 2009 Dustlab. All rights reserved.
 //
 
-#import "MRInfoView.h"
+#import "LCInfoView.h"
 #import "UIKit+DrawingHelpers.h"
 
 
-@interface MRInfoView ()
+@interface LCInfoView ()
 
 - (void)recalculateFrame;
 
 @end
 
 
-@implementation MRInfoView
+@implementation LCInfoView
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {		

@@ -1,5 +1,5 @@
 //
-//  MRLineChartView.h
+//  LCLineChartView.h
 //  
 //
 //  Created by Marcel Ruegenberg on 02.08.13.
@@ -8,26 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-@class MRLineChartDataItem;
+@class LCLineChartDataItem;
 
-typedef MRLineChartDataItem *(^MRLineChartDataGetter)(NSUInteger item);
+typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 
 
-@interface MRLineChartDataItem : NSObject
+@interface LCLineChartDataItem : NSObject
 
 @property (readonly) float x; // should be within the x range
 @property (readonly) float y; // should be within the y range
 @property (readonly) NSString *xLabel; // label to be shown on the x axis
 @property (readonly) NSString *dataLabel; // label to be shown directly at the data item
 
-+ (MRLineChartDataItem *)dataItemWithX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
++ (LCLineChartDataItem *)dataItemWithX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
 
 @end
 
 
 
-@interface MRLineChartData : NSObject
+@interface LCLineChartData : NSObject
 
 @property (strong) UIColor *color;
 @property (copy) NSString *title;
@@ -36,13 +36,13 @@ typedef MRLineChartDataItem *(^MRLineChartDataGetter)(NSUInteger item);
 @property float xMin;
 @property float xMax;
 
-@property (copy) MRLineChartDataGetter getData;
+@property (copy) LCLineChartDataGetter getData;
 
 @end
 
 
 
-@interface MRLineChartView : UIView
+@interface LCLineChartView : UIView
 
 @property (nonatomic, strong) NSArray *data; // Array of `LineChartData` objects, one for each line.
 

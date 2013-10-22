@@ -8,7 +8,7 @@
 
 #import "ChartViewController.h"
 #import "NSDate+Additions.h"
-#import "MRLineChartView.h"
+#import "LCLineChartView.h"
 
 @interface ChartViewController ()
 
@@ -20,9 +20,9 @@
 {
     [super viewDidLoad];
     
-    MRLineChartData *d1x = [MRLineChartData new];
+    LCLineChartData *d1x = [LCLineChartData new];
     {
-        MRLineChartData *d1 = d1x;
+        LCLineChartData *d1 = d1x;
         NSDate *date1 = [[NSDate date] dateByAddingDays:(-3)];
         NSDate *date2 = [[NSDate date] dateByAddingDays:2];
         d1.xMin = [date1 timeIntervalSinceReferenceDate];
@@ -49,13 +49,13 @@
             float y = [arr2[item] floatValue];
             NSString *label1 = [[date1 dateByAddingTimeInterval:x] dateString];
             NSString *label2 = [NSString stringWithFormat:@"%f", y];
-            return [MRLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+            return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
     }
     
-    MRLineChartData *d2x = [MRLineChartData new];
+    LCLineChartData *d2x = [LCLineChartData new];
     {
-        MRLineChartData *d1 = d2x;
+        LCLineChartData *d1 = d2x;
         NSDate *date1 = [[NSDate date] dateByAddingDays:(-3)];
         NSDate *date2 = [[NSDate date] dateByAddingDays:2];
         d1.xMin = [date1 timeIntervalSinceReferenceDate];
@@ -82,11 +82,11 @@
             float y = [arr2[item] floatValue];
             NSString *label1 = [[date1 dateByAddingTimeInterval:x] dateString];
             NSString *label2 = [NSString stringWithFormat:@"%f", y];
-            return [MRLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+            return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
     }
     
-    MRLineChartView *chartView = [[MRLineChartView alloc] initWithFrame:CGRectMake(20, 400, 500, 300)];
+    LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 400, 500, 300)];
     chartView.yMin = 0;
     chartView.yMax = 6;
     chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"A big label at 6.0"];
@@ -99,7 +99,7 @@
     [self.view addSubview:chartView];
     
     {
-        MRLineChartData *d = [MRLineChartData new];
+        LCLineChartData *d = [LCLineChartData new];
         d.xMin = 1;
         d.xMax = 31;
         d.title = @"The title for the legend";
@@ -117,10 +117,10 @@
             float y = powf(2, x / 7);
             NSString *label1 = [NSString stringWithFormat:@"%d", item];
             NSString *label2 = [NSString stringWithFormat:@"%f", y];
-            return [MRLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
+            return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
         
-        MRLineChartView *chartView = [[MRLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
+        LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
         chartView.yMin = 0;
         chartView.yMax = powf(2, 31 / 7) + 0.5;
         chartView.ySteps = @[@"0.0",
