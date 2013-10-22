@@ -201,7 +201,6 @@
         
         [[UIColor grayColor] set];
         for(NSUInteger i = 0; i < xCnt; ++i) {
-            NSLog(@"i: %d x: %d", i, xCnt);
             CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
             
             [[UIColor colorWithWhite:0.9 alpha:1.0] set];
