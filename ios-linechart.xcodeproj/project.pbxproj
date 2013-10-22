@@ -47,6 +47,7 @@
 		1C04F8A217AC0FA500F8A543 /* LCLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCLineChartView.m; sourceTree = "<group>"; };
 		1C04F8A517AC402600F8A543 /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
 		1C04F8A617AC402600F8A543 /* LCInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCInfoView.m; sourceTree = "<group>"; };
+		1C5999D118166CA90031C805 /* LineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
 		E763E74E5B5048B682038C66 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E88FE8D4A4A24E6E99D658EA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,6 +105,7 @@
 				1C04F8A217AC0FA500F8A543 /* LCLineChartView.m */,
 				1C04F8A517AC402600F8A543 /* LCInfoView.h */,
 				1C04F8A617AC402600F8A543 /* LCInfoView.m */,
+				1C5999D118166CA90031C805 /* LineChart.h */,
 				1C04F88B17AC0F5A00F8A543 /* ChartAppDelegate.h */,
 				1C04F88C17AC0F5A00F8A543 /* ChartAppDelegate.m */,
 				1C04F89417AC0F5A00F8A543 /* MainStoryboard.storyboard */,

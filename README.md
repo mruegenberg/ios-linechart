@@ -44,6 +44,10 @@ First, import the main header:
 ```obj-c
     #import "LCLineChartView.h"
 ```
+
+Alternatively, you can import the abbreviation header, which provides names without the `LC` prefix:
+```obj-c
+    #import "LineChart.h"
 ```
     
 Each chart line is contained in a `LCLineChartData` object, which specifies a range of its data on the x axis (`xMin` / `xMax`), a `color`, a `title` (which is displayed in the legend) and an `itemCount`, the number of data points:
