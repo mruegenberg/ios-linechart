@@ -285,7 +285,17 @@
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 5.5, yVal - 5.5, 11, 11));
                 [data.color setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
-                [[UIColor whiteColor] setFill];
+                {
+                    CGFloat h,s,b,a;
+                    if(CGColorGetNumberOfComponents([data.color CGColor]) < 3)
+                        [data.color getWhite:&b alpha:&a];
+                    else
+                        [data.color getHue:&h saturation:&s brightness:&b alpha:&a];
+                    if(b <= 0.5)
+                        [[UIColor whiteColor] setFill];
+                    else
+                        [[UIColor blackColor] setFill];
+                }
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 2, yVal - 2, 4, 4));
             } // for
         } // draw data points
