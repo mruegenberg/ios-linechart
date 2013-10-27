@@ -129,6 +129,8 @@
         chartView.xStepsCount = 5;
         chartView.data = @[d];
         
+        chartView.axisLabelColor = [UIColor blueColor];
+        
         [self.view addSubview:chartView];
     }
 }

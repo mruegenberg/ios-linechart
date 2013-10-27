@@ -54,7 +54,9 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 @property BOOL smoothPlot; // draw a smoothed Bezier plot? Default: NO
 @property BOOL drawsDataPoints; // Switch to turn off circles on data points. On by default.
 @property BOOL drawsDataLines; // Switch to turn off lines connecting data points. On by default.
+
 @property (strong) UIFont *scaleFont; // Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].
+@property (nonatomic,strong) UIColor *axisLabelColor;
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
 

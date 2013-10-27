@@ -79,10 +79,12 @@
     self.legendView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.legendView];
     
+    self.axisLabelColor = [UIColor grayColor];
+    
     self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.xAxisLabel.font = [UIFont boldSystemFontOfSize:10];
-    self.xAxisLabel.textColor = [UIColor grayColor];
+    self.xAxisLabel.textColor = self.axisLabelColor;
     self.xAxisLabel.textAlignment = NSTextAlignmentCenter;
     self.xAxisLabel.alpha = 0.0;
     self.xAxisLabel.backgroundColor = [UIColor clearColor];
@@ -110,6 +112,15 @@
         [self setDefaultValues];
     }
     return self;
+}
+
+- (void)setAxisLabelColor:(UIColor *)axisLabelColor {
+    if(axisLabelColor != _axisLabelColor) {
+        [self willChangeValueForKey:@"axisLabelColor"];
+        _axisLabelColor = axisLabelColor;
+        self.xAxisLabel.textColor = axisLabelColor;
+        [self didChangeValueForKey:@"axisLabelColor"];
+    }
 }
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated {
@@ -183,7 +194,7 @@
     CGContextSetLineWidth(c, 1.0);
     NSUInteger yCnt = [self.ySteps count];
     for(NSString *step in self.ySteps) {
-        [[UIColor grayColor] set];
+        [self.axisLabelColor set];
         CGFloat h = [self.scaleFont lineHeight];
         CGFloat y = yStart + heightPerStep * (yCnt - 1 - i);
         [step drawInRect:CGRectMake(yStart, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
@@ -224,6 +235,7 @@
     for(LCLineChartData *data in self.data) {
         if (self.drawsDataLines) {
             float xRangeLen = data.xMax - data.xMin;
+            if(xRangeLen == 0) xRangeLen = 1;
             if(data.itemCount >= 2) {
                 LCLineChartDataItem *datItem = data.getData(0);
                 CGMutablePathRef path = CGPathCreateMutable();
@@ -264,6 +276,7 @@
         } // draw actual chart data
         if (self.drawsDataPoints) {
             float xRangeLen = data.xMax - data.xMin;
+            if(xRangeLen == 0) xRangeLen = 1;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
                 LCLineChartDataItem *datItem = data.getData(i);
                 CGFloat xVal = xStart + round((xRangeLen == 0 ? 0.5 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
