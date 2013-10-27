@@ -157,6 +157,8 @@
         self.legendView.colors = colors;
         
         _data = data;
+        
+        [self setNeedsDisplay];
     }
 }
 
@@ -218,6 +220,7 @@
     } // warn if no data will be drawn
     
     CGFloat yRangeLen = self.yMax - self.yMin;
+    if(yRangeLen == 0) yRangeLen = 1;
     for(LCLineChartData *data in self.data) {
         if (self.drawsDataLines) {
             float xRangeLen = data.xMax - data.xMin;
@@ -274,6 +277,7 @@
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;
     CGFloat yRangeLen = self.yMax - self.yMin;
+    if(yRangeLen == 0) yRangeLen = 1;
     CGFloat xPos = pos.x - xStart;
     CGFloat yPos = pos.y - yStart;
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
