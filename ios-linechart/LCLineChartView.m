@@ -279,7 +279,7 @@
             if(xRangeLen == 0) xRangeLen = 1;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
                 LCLineChartDataItem *datItem = data.getData(i);
-                CGFloat xVal = xStart + round((xRangeLen == 0 ? 0.5 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
+                CGFloat xVal = xStart + round((xRangeLen == 0 ? 0.0 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
                 CGFloat yVal = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
                 [self.backgroundColor setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 5.5, yVal - 5.5, 11, 11));
