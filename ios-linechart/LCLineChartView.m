@@ -232,9 +232,21 @@
                                   yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight));
                 for(NSUInteger i = 1; i < data.itemCount; ++i) {
                     LCLineChartDataItem *datItem = data.getData(i);
-                    CGPathAddLineToPoint(path, NULL,
-                                         xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth),
-                                         yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight));
+                    LCLineChartDataItem *prevItem = data.getData(i - 1);
+                    CGFloat x = xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth);
+                    CGFloat prevX = xStart + round(((prevItem.x - data.xMin) / xRangeLen) * availableWidth);
+                    
+                    CGFloat y = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
+                    CGFloat prevY = yStart + round((1.0 - (prevItem.y - self.yMin) / yRangeLen) * availableHeight);
+                    
+                    CGFloat xDiff = x - prevX;
+                    CGFloat yDiff = y - prevY;
+                    CGFloat xSmoothing = self.smoothPlot ? MIN(30,xDiff) : 0;
+                    CGFloat ySmoothing = 0.5;
+                    CGFloat slope = yDiff / xDiff;
+                    CGPathAddCurveToPoint(path, NULL,
+                                          prevX + xSmoothing, prevY + ySmoothing * slope * xSmoothing,
+                                          x - xSmoothing,     y - ySmoothing * slope * xSmoothing, x, y);
                 }
                 
                 CGContextAddPath(c, path);

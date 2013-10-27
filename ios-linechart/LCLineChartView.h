@@ -51,6 +51,7 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 @property (strong) NSArray *ySteps; // Array of step names (NSString). At each step, a scale line is shown.
 @property NSUInteger xStepsCount; // number of steps in x. At each x step, a vertical scale line is shown. if x < 2, nothing is done
 
+@property BOOL smoothPlot; // draw a smoothed Bezier plot? Default: NO
 @property BOOL drawsDataPoints; // Switch to turn off circles on data points. On by default.
 @property BOOL drawsDataLines; // Switch to turn off lines connecting data points. On by default.
 @property (strong) UIFont *scaleFont; // Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].
