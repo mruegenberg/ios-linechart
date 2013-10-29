@@ -33,6 +33,8 @@ Just copy these into you project as well.
 
 ios-linechart uses Core Graphics, so you'll need to add `CoreGraphics.framework` to your project.
 
+Even if you don't use Cocoapods, it is recommended to use an official release, since the repository may be unstable in  between releases. Just check out the newest tagged commit.
+
 
 
 ## Usage
