@@ -239,26 +239,30 @@
             if(data.itemCount >= 2) {
                 LCLineChartDataItem *datItem = data.getData(0);
                 CGMutablePathRef path = CGPathCreateMutable();
-                CGPathMoveToPoint(path, NULL,
-                                  xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth),
-                                  yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight));
+                CGFloat prevX = xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth);
+                CGFloat prevY = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
+                CGPathMoveToPoint(path, NULL, prevX, prevY);
                 for(NSUInteger i = 1; i < data.itemCount; ++i) {
                     LCLineChartDataItem *datItem = data.getData(i);
                     LCLineChartDataItem *prevItem = data.getData(i - 1);
                     CGFloat x = xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth);
-                    CGFloat prevX = xStart + round(((prevItem.x - data.xMin) / xRangeLen) * availableWidth);
-                    
                     CGFloat y = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
-                    CGFloat prevY = yStart + round((1.0 - (prevItem.y - self.yMin) / yRangeLen) * availableHeight);
-                    
                     CGFloat xDiff = x - prevX;
                     CGFloat yDiff = y - prevY;
-                    CGFloat xSmoothing = self.smoothPlot ? MIN(30,xDiff) : 0;
-                    CGFloat ySmoothing = 0.5;
-                    CGFloat slope = yDiff / xDiff;
-                    CGPathAddCurveToPoint(path, NULL,
-                                          prevX + xSmoothing, prevY + ySmoothing * slope * xSmoothing,
-                                          x - xSmoothing,     y - ySmoothing * slope * xSmoothing, x, y);
+                    
+                    if(xDiff != 0) {
+                        CGFloat xSmoothing = self.smoothPlot ? MIN(30,xDiff) : 0;
+                        CGFloat ySmoothing = 0.5;
+                        CGFloat slope = yDiff / xDiff;
+                        CGPoint controlPt1 = CGPointMake(prevX + xSmoothing, prevY + ySmoothing * slope * xSmoothing);
+                        CGPoint controlPt2 = CGPointMake(x - xSmoothing, y - ySmoothing * slope * xSmoothing);
+                        CGPathAddCurveToPoint(path, NULL, controlPt1.x, controlPt1.y, controlPt2.x, controlPt2.y, x, y);
+                    }
+                    else {
+                        CGPathAddLineToPoint(path, NULL, x, y);
+                    }
+                    prevX = x;
+                    prevY = y;
                 }
                 
                 CGContextAddPath(c, path);
