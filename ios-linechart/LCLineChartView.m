@@ -244,7 +244,6 @@
                 CGPathMoveToPoint(path, NULL, prevX, prevY);
                 for(NSUInteger i = 1; i < data.itemCount; ++i) {
                     LCLineChartDataItem *datItem = data.getData(i);
-                    LCLineChartDataItem *prevItem = data.getData(i - 1);
                     CGFloat x = xStart + round(((datItem.x - data.xMin) / xRangeLen) * availableWidth);
                     CGFloat y = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
                     CGFloat xDiff = x - prevX;

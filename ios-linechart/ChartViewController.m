@@ -31,7 +31,6 @@
         d1.color = [UIColor redColor];
         d1.itemCount = 6;
         NSMutableArray *arr = [NSMutableArray array];
-        int y = rand();
         for(NSUInteger i = 0; i < 4; ++i) {
             [arr addObject:@(d1.xMin + (rand() / (float)RAND_MAX) * (d1.xMax - d1.xMin))];
         }
@@ -64,7 +63,6 @@
         d1.color = [UIColor blueColor];
         d1.itemCount = 8;
         NSMutableArray *arr = [NSMutableArray array];
-        int y = rand();
         for(NSUInteger i = 0; i < d1.itemCount - 2; ++i) {
             [arr addObject:@(d1.xMin + (rand() / (float)RAND_MAX) * (d1.xMax - d1.xMin))];
         }
