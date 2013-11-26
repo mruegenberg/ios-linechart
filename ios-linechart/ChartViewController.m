@@ -7,24 +7,33 @@
 //
 
 #import "ChartViewController.h"
-#import "NSDate+Additions.h"
 #import "LCLineChartView.h"
 
 @interface ChartViewController ()
+
+@property (strong) NSDateFormatter *formatter;
 
 @end
 
 @implementation ChartViewController
 
+#define SECS_PER_DAY (86400)
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    {
+        self.formatter = [[NSDateFormatter alloc] init];
+        [self.formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"yyyyMMMd" options:0 locale:[NSLocale currentLocale]]];
+    }
+    
     LCLineChartData *d1x = [LCLineChartData new];
     {
         LCLineChartData *d1 = d1x;
-        NSDate *date1 = [[NSDate date] dateByAddingDays:(-3)];
-        NSDate *date2 = [[NSDate date] dateByAddingDays:2];
+        // el-cheapo next/prev day. Don't use this in your Real Code (use NSDateComponents or objc-utils instead)
+        NSDate *date1 = [[NSDate date] dateByAddingTimeInterval:((-3) * SECS_PER_DAY)];
+        NSDate *date2 = [[NSDate date] dateByAddingTimeInterval:((2) * SECS_PER_DAY)];
         d1.xMin = [date1 timeIntervalSinceReferenceDate];
         d1.xMax = [date2 timeIntervalSinceReferenceDate];
         d1.title = @"Foobarbang";
@@ -46,7 +55,7 @@
         d1.getData = ^(NSUInteger item) {
             float x = [arr[item] floatValue];
             float y = [arr2[item] floatValue];
-            NSString *label1 = [[date1 dateByAddingTimeInterval:x] dateString];
+            NSString *label1 = [self.formatter stringFromDate:[date1 dateByAddingTimeInterval:x]];
             NSString *label2 = [NSString stringWithFormat:@"%f", y];
             return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
@@ -55,8 +64,8 @@
     LCLineChartData *d2x = [LCLineChartData new];
     {
         LCLineChartData *d1 = d2x;
-        NSDate *date1 = [[NSDate date] dateByAddingDays:(-3)];
-        NSDate *date2 = [[NSDate date] dateByAddingDays:2];
+        NSDate *date1 = [[NSDate date] dateByAddingTimeInterval:((-3) * SECS_PER_DAY)];
+        NSDate *date2 = [[NSDate date] dateByAddingTimeInterval:((2) * SECS_PER_DAY)];
         d1.xMin = [date1 timeIntervalSinceReferenceDate];
         d1.xMax = [date2 timeIntervalSinceReferenceDate];
         d1.title = @"Bar";
@@ -78,7 +87,7 @@
         d1.getData = ^(NSUInteger item) {
             float x = [arr[item] floatValue];
             float y = [arr2[item] floatValue];
-            NSString *label1 = [[date1 dateByAddingTimeInterval:x] dateString];
+            NSString *label1 = [self.formatter stringFromDate:[date1 dateByAddingTimeInterval:x]];
             NSString *label2 = [NSString stringWithFormat:@"%f", y];
             return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };

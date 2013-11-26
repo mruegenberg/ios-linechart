@@ -9,7 +9,6 @@
 #import "LCLineChartView.h"
 #import "LCLegendView.h"
 #import "LCInfoView.h"
-#import <objc-utils/NSArray+FPAdditions.h>
 
 @interface LCLineChartDataItem ()
 
@@ -408,12 +407,12 @@
 
 // TODO: This should really be a cached value. Invalidated iff ySteps changes.
 - (CGFloat)yAxisLabelsWidth {
-    NSNumber *requiredWidth = [[self.ySteps mapWithBlock:^id(id obj) {
-        NSString *label = (NSString*)obj;
+    float maxV = 0;
+    for(NSString *label in self.ySteps) {
         CGSize labelSize = [label sizeWithFont:self.scaleFont];
-        return @(labelSize.width); // Literal NSNumber Conversion
-    }] valueForKeyPath:@"@max.self"]; // gets biggest object. Yeah, NSKeyValueCoding. Deal with it.
-    return [requiredWidth floatValue] + PADDING;
+        if(labelSize.width > maxV) maxV = labelSize.width;
+    }
+    return maxV + PADDING;
 }
 
 @end
