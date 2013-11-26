@@ -107,6 +107,11 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 
 ![Screenshot 2](doc/screenshot2.png)
 
+## FAQ
+
+- *The sample project doesn't compile*
+  The sample project, at the moment, needs CocoaPods. Install Cocoapods, then run `pod install` while you are in the ios-linechart directory.
+
 ## Contact
 
 ![Travis CI build status](https://api.travis-ci.org/mruegenberg/ios-linechart.png)
