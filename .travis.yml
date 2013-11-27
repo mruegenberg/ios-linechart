@@ -1,1 +1,5 @@
 language: objective-c
+
+before_script:
+  - gem install cocoapods
+
