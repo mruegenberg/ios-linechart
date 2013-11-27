@@ -1,3 +1,5 @@
 language: objective-c
 
+rvm: 1.9.3
+
 
