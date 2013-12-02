@@ -76,7 +76,11 @@ void CGContextAddRoundedRectWithHookSimple(CGContextRef c, CGRect rect, CGFloat 
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
+    // TODO: replace with new text APIs in iOS 7 only version
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     CGSize s = [self.infoLabel.text sizeWithFont:self.infoLabel.font];
+#pragma clang diagnostic pop
     s.height += 15;
     s.height += SHADOWSIZE;
     

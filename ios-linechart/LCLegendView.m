@@ -30,9 +30,13 @@
             CGContextFillEllipseInRect(c, CGRectMake(PADDING + 2, PADDING + round(y) + self.titlesFont.xHeight / 2 + 1, 6, 6));
         }
         [[UIColor whiteColor] set];
+        // TODO: replace with new text APIs in iOS 7 only version
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [title drawAtPoint:CGPointMake(COLORPADDING + PADDING, y + PADDING + 1) withFont:self.titlesFont];
         [[UIColor blackColor] set];
         [title drawAtPoint:CGPointMake(COLORPADDING + PADDING, y + PADDING) withFont:self.titlesFont];
+#pragma clang diagnostic pop
         y += [self.titlesFont lineHeight];
     }
 }
@@ -47,7 +51,11 @@
     CGFloat h = [self.titlesFont lineHeight] * [self.titles count];
     CGFloat w = 0;
     for(NSString *title in self.titles) {
+        // TODO: replace with new text APIs in iOS 7 only version
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         CGSize s = [title sizeWithFont:self.titlesFont];
+#pragma clang diagnostic pop
         w = MAX(w, s.width);
     }
     return CGSizeMake(COLORPADDING + w + 2 * PADDING, h + 2 * PADDING);

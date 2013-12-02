@@ -196,7 +196,11 @@
         [self.axisLabelColor set];
         CGFloat h = [self.scaleFont lineHeight];
         CGFloat y = yStart + heightPerStep * (yCnt - 1 - i);
+        // TODO: replace with new text APIs in iOS 7 only version
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [step drawInRect:CGRectMake(yStart, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
+#pragma clagn diagnostic pop
         
         [[UIColor colorWithWhite:0.9 alpha:1.0] set];
         CGContextSetLineDash(c, 0, dashedPattern, 2);
