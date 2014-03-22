@@ -136,18 +136,18 @@
 - (void)layoutSubviews {
     [self.legendView sizeToFit];
     CGRect r = self.legendView.frame;
-    r.origin.x = self.frame.size.width - self.legendView.frame.size.width - 3 - PADDING;
+    r.origin.x = self.bounds.size.width - self.legendView.frame.size.width - 3 - PADDING;
     r.origin.y = 3 + PADDING;
     self.legendView.frame = r;
     
     r = self.currentPosView.frame;
-    CGFloat h = self.frame.size.height;
+    CGFloat h = self.bounds.size.height;
     r.size.height = h - 2 * PADDING - X_AXIS_SPACE;
     self.currentPosView.frame = r;
     
     [self.xAxisLabel sizeToFit];
     r = self.xAxisLabel.frame;
-    r.origin.y = self.frame.size.height - X_AXIS_SPACE - PADDING + 2;
+    r.origin.y = self.bounds.size.height - X_AXIS_SPACE - PADDING + 2;
     self.xAxisLabel.frame = r;
     
     [self bringSubviewToFront:self.legendView];
