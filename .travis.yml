@@ -3,4 +3,6 @@ language: objective-c
 rvm: 1.9.3
 
 before_install:
-  - gem install cocoapods -v '0.29.0'
+  - gem install cocoapods -v '0.32.1'
+  - pod repo remove master
+  - pod setup
