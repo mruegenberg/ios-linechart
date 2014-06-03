@@ -1,6 +1,6 @@
 //
 //  LCLineChartView.m
-//  
+//
 //
 //  Created by Marcel Ruegenberg on 02.08.13.
 //
@@ -43,6 +43,14 @@
 
 @implementation LCLineChartData
 
+- (id)init {
+  self = [super init];
+  if(self) {
+    self.drawsDataPoints = YES;
+  }
+  return self;
+}
+
 @end
 
 
@@ -72,14 +80,14 @@
     self.currentPosView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.currentPosView.alpha = 0.0;
     [self addSubview:self.currentPosView];
-    
+
     self.legendView = [[LCLegendView alloc] init];
     self.legendView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     self.legendView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.legendView];
-    
+
     self.axisLabelColor = [UIColor grayColor];
-    
+
     self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.xAxisLabel.font = [UIFont boldSystemFontOfSize:10];
@@ -88,13 +96,13 @@
     self.xAxisLabel.alpha = 0.0;
     self.xAxisLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:self.xAxisLabel];
-    
+
     self.backgroundColor = [UIColor whiteColor];
     self.scaleFont = [UIFont systemFontOfSize:10.0];
-    
+
     self.autoresizesSubviews = YES;
     self.contentMode = UIViewContentModeRedraw;
-    
+
     self.drawsDataPoints = YES;
     self.drawsDataLines  = YES;
 }
@@ -127,29 +135,29 @@
         self.legendView.alpha = show ? 1.0 : 0.0;
         return;
     }
-    
+
     [UIView animateWithDuration:0.3 animations:^{
         self.legendView.alpha = show ? 1.0 : 0.0;
     }];
 }
-                           
+
 - (void)layoutSubviews {
     [self.legendView sizeToFit];
     CGRect r = self.legendView.frame;
     r.origin.x = self.bounds.size.width - self.legendView.frame.size.width - 3 - PADDING;
     r.origin.y = 3 + PADDING;
     self.legendView.frame = r;
-    
+
     r = self.currentPosView.frame;
     CGFloat h = self.bounds.size.height;
     r.size.height = h - 2 * PADDING - X_AXIS_SPACE;
     self.currentPosView.frame = r;
-    
+
     [self.xAxisLabel sizeToFit];
     r = self.xAxisLabel.frame;
     r.origin.y = self.bounds.size.height - X_AXIS_SPACE - PADDING + 2;
     self.xAxisLabel.frame = r;
-    
+
     [self bringSubviewToFront:self.legendView];
 }
 
@@ -165,29 +173,29 @@
         }
         self.legendView.titles = titles;
         self.legendView.colors = colors;
-        
+
         _data = data;
-        
+
         [self setNeedsDisplay];
     }
 }
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    
+
     CGContextRef c = UIGraphicsGetCurrentContext();
-    
+
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
-    
+
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;
-    
+
     static CGFloat dashedPattern[] = {4,2};
-    
+
     // draw scale and horizontal lines
     CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] == 0 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
-    
+
     NSUInteger i = 0;
     CGContextSaveGState(c);
     CGContextSetLineWidth(c, 1.0);
@@ -201,38 +209,38 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [step drawInRect:CGRectMake(yStart, y - h / 2, self.yAxisLabelsWidth - 6, h) withFont:self.scaleFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
 #pragma clagn diagnostic pop
-        
+
         [[UIColor colorWithWhite:0.9 alpha:1.0] set];
         CGContextSetLineDash(c, 0, dashedPattern, 2);
         CGContextMoveToPoint(c, xStart, round(y) + 0.5);
         CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(y) + 0.5);
         CGContextStrokePath(c);
-        
+
         i++;
     }
-    
+
     NSUInteger xCnt = self.xStepsCount;
     if(xCnt > 1) {
         CGFloat widthPerStep = availableWidth / (xCnt - 1);
-        
+
         [[UIColor grayColor] set];
         for(NSUInteger i = 0; i < xCnt; ++i) {
             CGFloat x = xStart + widthPerStep * (xCnt - 1 - i);
-            
+
             [[UIColor colorWithWhite:0.9 alpha:1.0] set];
             CGContextMoveToPoint(c, round(x) + 0.5, PADDING);
             CGContextAddLineToPoint(c, round(x) + 0.5, yStart + availableHeight);
             CGContextStrokePath(c);
         }
     }
-    
+
     CGContextRestoreGState(c);
 
 
     if (!self.drawsAnyData) {
         NSLog(@"You configured LineChartView to draw neither lines nor data points. No data will be visible. This is most likely not what you wanted. (But we aren't judging you, so here's your chart background.)");
     } // warn if no data will be drawn
-    
+
     CGFloat yRangeLen = self.yMax - self.yMin;
     if(yRangeLen == 0) yRangeLen = 1;
     for(LCLineChartData *data in self.data) {
@@ -251,7 +259,7 @@
                     CGFloat y = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
                     CGFloat xDiff = x - prevX;
                     CGFloat yDiff = y - prevY;
-                    
+
                     if(xDiff != 0) {
                         CGFloat xSmoothing = self.smoothPlot ? MIN(30,xDiff) : 0;
                         CGFloat ySmoothing = 0.5;
@@ -266,21 +274,22 @@
                     prevX = x;
                     prevY = y;
                 }
-                
+
                 CGContextAddPath(c, path);
                 CGContextSetStrokeColorWithColor(c, [self.backgroundColor CGColor]);
                 CGContextSetLineWidth(c, 5);
                 CGContextStrokePath(c);
-                
+
                 CGContextAddPath(c, path);
                 CGContextSetStrokeColorWithColor(c, [data.color CGColor]);
                 CGContextSetLineWidth(c, 2);
                 CGContextStrokePath(c);
-                
+
                 CGPathRelease(path);
             }
         } // draw actual chart data
         if (self.drawsDataPoints) {
+          if (data.drawsDataPoints) {
             float xRangeLen = data.xMax - data.xMin;
             if(xRangeLen == 0) xRangeLen = 1;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
@@ -304,6 +313,7 @@
                 }
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 2, yVal - 2, 4, 4));
             } // for
+          } // data - draw data points
         } // draw data points
     }
 }
@@ -313,7 +323,7 @@
         self.infoView = [[LCInfoView alloc] init];
         [self addSubview:self.infoView];
     }
-    
+
     CGPoint pos = [touch locationInView:self];
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;
@@ -323,19 +333,19 @@
     CGFloat yPos = pos.y - yStart;
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
-    
+
     LCLineChartDataItem *closest = nil;
     float minDist = FLT_MAX;
     float minDistY = FLT_MAX;
     CGPoint closestPos = CGPointZero;
-    
+
     for(LCLineChartData *data in self.data) {
         float xRangeLen = data.xMax - data.xMin;
         for(NSUInteger i = 0; i < data.itemCount; ++i) {
             LCLineChartDataItem *datItem = data.getData(i);
             CGFloat xVal = round((xRangeLen == 0 ? 0.0 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
             CGFloat yVal = round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
-            
+
             float dist = fabsf(xVal - xPos);
             float distY = fabsf(yVal - yPos);
             if(dist < minDist || (dist == minDist && distY < minDistY)) {
@@ -346,28 +356,28 @@
             }
         }
     }
-    
+
     self.infoView.infoLabel.text = closest.dataLabel;
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
     [self.infoView setNeedsLayout];
     [self.infoView setNeedsDisplay];
-    
+
     if(self.currentPosView.alpha == 0.0) {
         CGRect r = self.currentPosView.frame;
         r.origin.x = closestPos.x + 3 - 1;
         self.currentPosView.frame = r;
     }
-    
+
     [UIView animateWithDuration:0.1 animations:^{
         self.infoView.alpha = 1.0;
         self.currentPosView.alpha = 1.0;
         self.xAxisLabel.alpha = 1.0;
-        
+
         CGRect r = self.currentPosView.frame;
         r.origin.x = closestPos.x + 3 - 1;
         self.currentPosView.frame = r;
-        
+
         self.xAxisLabel.text = closest.xLabel;
         if(self.xAxisLabel.text != nil) {
             [self.xAxisLabel sizeToFit];
@@ -391,7 +401,7 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self showIndicatorForTouch:[touches anyObject]];	
+    [self showIndicatorForTouch:[touches anyObject]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

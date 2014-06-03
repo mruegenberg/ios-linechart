@@ -1,6 +1,6 @@
 //
 //  LCLineChartView.h
-//  
+//
 //
 //  Created by Marcel Ruegenberg on 02.08.13.
 //
@@ -29,6 +29,7 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @interface LCLineChartData : NSObject
 
+@property BOOL drawsDataPoints
 @property (strong) UIColor *color;
 @property (copy) NSString *title;
 @property NSUInteger itemCount;
