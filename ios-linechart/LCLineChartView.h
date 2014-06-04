@@ -29,7 +29,7 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @interface LCLineChartData : NSObject
 
-@property BOOL drawsDataPoints
+@property BOOL drawsDataPoints;
 @property (strong) UIColor *color;
 @property (copy) NSString *title;
 @property NSUInteger itemCount;
