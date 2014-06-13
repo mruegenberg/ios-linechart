@@ -1,4 +1,4 @@
-platform :ios, '5.0'
+platform :ios, '5.1'
 
-pod 'uikit-utils'
+pod 'uikit-utils', '~> 0.5.1'
 

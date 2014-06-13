@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/mruegenberg/ios-linechart.git", :tag => "1.3.0" }
 
-  s.platform     = :ios, '5.0'
+  s.platform     = :ios, '5.1'
 
   s.source_files = 'ios-linechart/LCLegendView.{h,m}', 'ios-linechart/LCLineChartView.{h,m}', 'ios-linechart/LCInfoView.{h,m}', 'ios-linechart/LineChart.h'
 
@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.dependency 'uikit-utils', '~> 0.5.0'
+  s.dependency 'uikit-utils', '~> 0.5.1'
 end
