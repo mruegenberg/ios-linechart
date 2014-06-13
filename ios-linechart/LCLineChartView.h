@@ -16,12 +16,12 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @interface LCLineChartDataItem : NSObject
 
-@property (readonly) float x; /// should be within the x range
-@property (readonly) float y; /// should be within the y range
+@property (readonly) double x; /// should be within the x range
+@property (readonly) double y; /// should be within the y range
 @property (readonly) NSString *xLabel; /// label to be shown on the x axis
 @property (readonly) NSString *dataLabel; /// label to be shown directly at the data item
 
-+ (LCLineChartDataItem *)dataItemWithX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
++ (LCLineChartDataItem *)dataItemWithX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
 
 @end
 
@@ -34,8 +34,8 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 @property (copy) NSString *title;
 @property NSUInteger itemCount;
 
-@property float xMin;
-@property float xMax;
+@property double xMin;
+@property double xMax;
 
 @property (copy) LCLineChartDataGetter getData;
 
@@ -47,8 +47,8 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @property (nonatomic, strong) NSArray *data; /// Array of `LineChartData` objects, one for each line.
 
-@property float yMin;
-@property float yMax;
+@property double yMin;
+@property double yMax;
 @property (strong) NSArray *ySteps; /// Array of step names (NSString). At each step, a scale line is shown.
 @property NSUInteger xStepsCount; /// number of steps in x. At each x step, a vertical scale line is shown. if x < 2, nothing is done
 

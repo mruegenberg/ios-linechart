@@ -12,18 +12,18 @@
 
 @interface LCLineChartDataItem ()
 
-@property (readwrite) float x; // should be within the x range
-@property (readwrite) float y; // should be within the y range
+@property (readwrite) double x; // should be within the x range
+@property (readwrite) double y; // should be within the y range
 @property (readwrite) NSString *xLabel; // label to be shown on the x axis
 @property (readwrite) NSString *dataLabel; // label to be shown directly at the data item
 
-- (id)initWithhX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
+- (id)initWithhX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
 
 @end
 
 @implementation LCLineChartDataItem
 
-- (id)initWithhX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
+- (id)initWithhX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
     if((self = [super init])) {
         self.x = x;
         self.y = y;
@@ -33,7 +33,7 @@
     return self;
 }
 
-+ (LCLineChartDataItem *)dataItemWithX:(float)x y:(float)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
++ (LCLineChartDataItem *)dataItemWithX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
     return [[LCLineChartDataItem alloc] initWithhX:x y:y xLabel:xLabel dataLabel:dataLabel];
 }
 
@@ -245,7 +245,7 @@
     if(yRangeLen == 0) yRangeLen = 1;
     for(LCLineChartData *data in self.data) {
         if (self.drawsDataLines) {
-            float xRangeLen = data.xMax - data.xMin;
+            double xRangeLen = data.xMax - data.xMin;
             if(xRangeLen == 0) xRangeLen = 1;
             if(data.itemCount >= 2) {
                 LCLineChartDataItem *datItem = data.getData(0);
@@ -290,7 +290,7 @@
         } // draw actual chart data
         if (self.drawsDataPoints) {
           if (data.drawsDataPoints) {
-            float xRangeLen = data.xMax - data.xMin;
+            double xRangeLen = data.xMax - data.xMin;
             if(xRangeLen == 0) xRangeLen = 1;
             for(NSUInteger i = 0; i < data.itemCount; ++i) {
                 LCLineChartDataItem *datItem = data.getData(i);
@@ -335,19 +335,19 @@
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
 
     LCLineChartDataItem *closest = nil;
-    float minDist = FLT_MAX;
-    float minDistY = FLT_MAX;
+    double minDist = DBL_MAX;
+    double minDistY = DBL_MAX;
     CGPoint closestPos = CGPointZero;
 
     for(LCLineChartData *data in self.data) {
-        float xRangeLen = data.xMax - data.xMin;
+        double xRangeLen = data.xMax - data.xMin;
         for(NSUInteger i = 0; i < data.itemCount; ++i) {
             LCLineChartDataItem *datItem = data.getData(i);
             CGFloat xVal = round((xRangeLen == 0 ? 0.0 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
             CGFloat yVal = round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
 
-            float dist = fabsf(xVal - xPos);
-            float distY = fabsf(yVal - yPos);
+            double dist = fabsf(xVal - xPos);
+            double distY = fabsf(yVal - yPos);
             if(dist < minDist || (dist == minDist && distY < minDistY)) {
                 minDist = dist;
                 minDistY = distY;
@@ -421,7 +421,7 @@
 
 // TODO: This should really be a cached value. Invalidated iff ySteps changes.
 - (CGFloat)yAxisLabelsWidth {
-    float maxV = 0;
+    double maxV = 0;
     for(NSString *label in self.ySteps) {
         CGSize labelSize = [label sizeWithFont:self.scaleFont];
         if(labelSize.width > maxV) maxV = labelSize.width;
