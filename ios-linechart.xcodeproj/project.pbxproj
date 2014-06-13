@@ -161,6 +161,11 @@
 				CLASSPREFIX = Chart;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Marcel Ruegenberg";
+				TargetAttributes = {
+					1C04F87817AC0F5A00F8A543 = {
+						DevelopmentTeam = 28AD228865;
+					};
+				};
 			};
 			buildConfigurationList = 1C04F87417AC0F5A00F8A543 /* Build configuration list for PBXProject "ios-linechart" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -323,10 +328,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E763E74E5B5048B682038C66 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios-linechart/ios-linechart-Prefix.pch";
 				INFOPLIST_FILE = "ios-linechart/ios-linechart-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -335,10 +343,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E763E74E5B5048B682038C66 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios-linechart/ios-linechart-Prefix.pch";
 				INFOPLIST_FILE = "ios-linechart/ios-linechart-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

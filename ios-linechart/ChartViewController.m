@@ -128,7 +128,7 @@
         d.getData = ^(NSUInteger item) {
             float x = [vals[item] floatValue];
             float y = powf(2, x / 7);
-            NSString *label1 = [NSString stringWithFormat:@"%d", item];
+            NSString *label1 = [NSString stringWithFormat:@"%lu", (unsigned long)item];
             NSString *label2 = [NSString stringWithFormat:@"%f", y];
             return [LCLineChartDataItem dataItemWithX:x y:y xLabel:label1 dataLabel:label2];
         };
