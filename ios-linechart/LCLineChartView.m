@@ -72,6 +72,7 @@
 
 
 @implementation LCLineChartView
+@synthesize chartDelegate;
 @synthesize data=_data;
 
 - (void)setDefaultValues {
@@ -333,6 +334,7 @@
     CGFloat yPos = pos.y - yStart;
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
+    LCLineChartData * graph = nil;
 
     LCLineChartDataItem *closest = nil;
     double minDist = DBL_MAX;
@@ -353,10 +355,15 @@
                 minDistY = distY;
                 closest = datItem;
                 closestPos = CGPointMake(xStart + xVal - 3, yStart + yVal - 7);
+                
+                graph = data;
             }
         }
     }
-
+    
+    [self.chartDelegate selectedPointWithX:closest.x y:closest.y xLabel:closest.xLabel dataLabel:closest.dataLabel fromGraph:graph];
+    graph = nil;
+    
     self.infoView.infoLabel.text = closest.dataLabel;
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
@@ -389,6 +396,8 @@
 }
 
 - (void)hideIndicator {
+    [self.chartDelegate deselectedPoint];
+    
     [UIView animateWithDuration:0.1 animations:^{
         self.infoView.alpha = 0.0;
         self.currentPosView.alpha = 0.0;

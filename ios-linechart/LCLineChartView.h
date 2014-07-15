@@ -43,7 +43,19 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 
 
+@protocol LCLineChartViewDelegate <NSObject>
+
+- (void)selectedPointWithX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel fromGraph:(LCLineChartData *)graph;
+
+- (void)deselectedPoint;
+
+@end
+
+
+
 @interface LCLineChartView : UIView
+
+@property (assign) id <LCLineChartViewDelegate> chartDelegate;
 
 @property (nonatomic, strong) NSArray *data; /// Array of `LineChartData` objects, one for each line.
 
