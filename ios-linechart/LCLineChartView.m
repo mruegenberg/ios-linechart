@@ -361,7 +361,7 @@
         }
     }
     
-    [self.chartDelegate selectedPointWithX:closest.x y:closest.y xLabel:closest.xLabel dataLabel:closest.dataLabel fromGraph:graph];
+    graph.notifySelectedPoint(closest);
     graph = nil;
     
     self.infoView.infoLabel.text = closest.dataLabel;
@@ -396,7 +396,7 @@
 }
 
 - (void)hideIndicator {
-    [self.chartDelegate deselectedPoint];
+    self.notifyDeselectedPoint();
     
     [UIView animateWithDuration:0.1 animations:^{
         self.infoView.alpha = 0.0;
