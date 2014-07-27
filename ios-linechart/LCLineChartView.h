@@ -46,16 +46,6 @@ typedef void(^LCLineChartDeselectedPoint)();
 
 
 
-@protocol LCLineChartViewDelegate <NSObject>
-
-- (void)selectedPointWithX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel fromGraph:(LCLineChartData *)graph;
-
--(void)deselectedPoint;
-
-@end
-
-
-
 @interface LCLineChartView : UIView
 
 @property (copy) LCLineChartDeselectedPoint notifyDeselectedPoint;

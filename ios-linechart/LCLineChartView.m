@@ -360,7 +360,10 @@
         }
     }
     
-    graph.notifySelectedPoint(closest);
+    if(graph.notifySelectedPoint != nil) {
+        graph.notifySelectedPoint(closest);
+    }
+
     graph = nil;
     
     self.infoView.infoLabel.text = closest.dataLabel;
@@ -395,7 +398,9 @@
 }
 
 - (void)hideIndicator {
-    self.notifyDeselectedPoint();
+    if(self.notifyDeselectedPoint != nil) {
+        self.notifyDeselectedPoint();
+    }
     
     [UIView animateWithDuration:0.1 animations:^{
         self.infoView.alpha = 0.0;
