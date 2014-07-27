@@ -58,8 +58,6 @@ typedef void(^LCLineChartDeselectedPoint)();
 
 @interface LCLineChartView : UIView
 
-@property (assign) id <LCLineChartViewDelegate> chartDelegate;
-
 @property (copy) LCLineChartDeselectedPoint notifyDeselectedPoint;
 
 @property (nonatomic, strong) NSArray *data; /// Array of `LineChartData` objects, one for each line.

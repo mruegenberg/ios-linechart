@@ -72,7 +72,6 @@
 
 
 @implementation LCLineChartView
-@synthesize chartDelegate;
 @synthesize data=_data;
 
 - (void)setDefaultValues {
