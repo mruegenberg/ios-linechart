@@ -102,6 +102,11 @@
         chartView.yMax = 6;
         chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"A big label at 6.0"];
         chartView.data = @[d1x,d2x];
+        chartView.selectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {
+            if(dat == d1x && item == 1) {
+                NSLog(@"User selected item 1 in 1st graph at position %@ in the graph view", NSStringFromCGPoint(pos));
+            }
+        };
         
         //    chartView.drawsDataPoints = NO; // Uncomment to turn off circles at data points.
         //    chartView.drawsDataLines = NO; // Uncomment to turn off lines connecting data points.

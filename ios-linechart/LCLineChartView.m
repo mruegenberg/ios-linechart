@@ -333,15 +333,17 @@
     CGFloat yPos = pos.y - yStart;
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
-    LCLineChartData * graph = nil;
 
-    LCLineChartDataItem *closest = nil;
+    LCLineChartData *closestData = nil;
+    NSUInteger closestIdx = INT_MAX;
     double minDist = DBL_MAX;
     double minDistY = DBL_MAX;
     CGPoint closestPos = CGPointZero;
 
     for(LCLineChartData *data in self.data) {
         double xRangeLen = data.xMax - data.xMin;
+        
+        // note: if necessary, could use binary search here to speed things up
         for(NSUInteger i = 0; i < data.itemCount; ++i) {
             LCLineChartDataItem *datItem = data.getData(i);
             CGFloat xVal = round((xRangeLen == 0 ? 0.0 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
@@ -352,20 +354,17 @@
             if(dist < minDist || (dist == minDist && distY < minDistY)) {
                 minDist = dist;
                 minDistY = distY;
-                closest = datItem;
+                closestData = data;
+                closestIdx = i;
                 closestPos = CGPointMake(xStart + xVal - 3, yStart + yVal - 7);
-                
-                graph = data;
             }
         }
     }
     
-    if(graph.notifySelectedPoint != nil) {
-        graph.notifySelectedPoint(closest);
-    }
-
-    graph = nil;
+    if(closestIdx == INT_MAX)
+        return;
     
+    LCLineChartDataItem *closest = closestData.getData(closestIdx);
     self.infoView.infoLabel.text = closest.dataLabel;
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
@@ -395,12 +394,15 @@
             self.xAxisLabel.frame = r;
         }
     }];
+    
+    if(self.selectedItemCallback != nil) {
+        self.deselectedItemCallback(closestData, closestIdx, closestPos);
+    }
 }
 
 - (void)hideIndicator {
-    if(self.notifyDeselectedPoint != nil) {
-        self.notifyDeselectedPoint();
-    }
+    if(self.deselectedItemCallback)
+        self.deselectedItemCallback();
     
     [UIView animateWithDuration:0.1 animations:^{
         self.infoView.alpha = 0.0;

@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class LCLineChartDataItem;
+@class LCLineChartData;
 
 typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
-typedef void(^LCLineChartSelectedPoint)(LCLineChartDataItem * dateItem);
-typedef void(^LCLineChartDeselectedPoint)();
+typedef void(^LCLineChartSelectedItem)(LCLineChartData * data, NSUInteger item, CGPoint positionInChart);
+typedef void(^LCLineChartDeselectedItem)();
 
 
 @interface LCLineChartDataItem : NSObject
@@ -40,15 +41,14 @@ typedef void(^LCLineChartDeselectedPoint)();
 
 @property (copy) LCLineChartDataGetter getData;
 
-@property (copy) LCLineChartSelectedPoint notifySelectedPoint;
-
 @end
 
 
 
 @interface LCLineChartView : UIView
 
-@property (copy) LCLineChartDeselectedPoint notifyDeselectedPoint;
+@property (copy) LCLineChartSelectedItem selectedItemCallback; /// Called whenever a data point is selected
+@property (copy) LCLineChartDeselectedItem deselectedItemCallback; /// Called after a data point is deselected and before the next `selected` callback
 
 @property (nonatomic, strong) NSArray *data; /// Array of `LineChartData` objects, one for each line.
 
