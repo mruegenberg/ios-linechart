@@ -11,7 +11,8 @@
 @class LCLineChartDataItem;
 
 typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
-
+typedef void(^LCLineChartSelectedPoint)(LCLineChartDataItem * dateItem);
+typedef void(^LCLineChartDeselectedPoint)();
 
 
 @interface LCLineChartDataItem : NSObject
@@ -39,11 +40,15 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @property (copy) LCLineChartDataGetter getData;
 
+@property (copy) LCLineChartSelectedPoint notifySelectedPoint;
+
 @end
 
 
 
 @interface LCLineChartView : UIView
+
+@property (copy) LCLineChartDeselectedPoint notifyDeselectedPoint;
 
 @property (nonatomic, strong) NSArray *data; /// Array of `LineChartData` objects, one for each line.
 
