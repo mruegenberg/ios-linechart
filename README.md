@@ -112,10 +112,10 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 - *The sample project doesn't compile*
 
   The sample project, at the moment, needs CocoaPods. Install Cocoapods, then run `pod install` while you are in the ios-linechart directory.
-	
-## Support this project
+  
+- *Will the project support bar charts, pie charts, ...?*
 
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/mruegenberg/)
+  No.
 
 ## Contact
 

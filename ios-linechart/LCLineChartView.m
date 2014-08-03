@@ -396,7 +396,7 @@
     }];
     
     if(self.selectedItemCallback != nil) {
-        self.deselectedItemCallback(closestData, closestIdx, closestPos);
+        self.selectedItemCallback(closestData, closestIdx, closestPos);
     }
 }
 
