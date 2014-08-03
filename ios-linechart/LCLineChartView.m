@@ -64,6 +64,9 @@
 
 - (BOOL)drawsAnyData;
 
+@property LCLineChartData *selectedData;
+@property NSUInteger selectedIdx;
+
 @end
 
 
@@ -105,6 +108,8 @@
 
     self.drawsDataPoints = YES;
     self.drawsDataLines  = YES;
+    
+    self.selectedIdx = INT_MAX;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -173,6 +178,8 @@
         }
         self.legendView.titles = titles;
         self.legendView.colors = colors;
+        self.selectedData = nil;
+        self.selectedIdx = INT_MAX;
 
         _data = data;
 
@@ -334,6 +341,7 @@
     CGFloat availableWidth = self.bounds.size.width - 2 * PADDING - self.yAxisLabelsWidth;
     CGFloat availableHeight = self.bounds.size.height - 2 * PADDING - X_AXIS_SPACE;
 
+    LCLineChartDataItem *closest = nil;
     LCLineChartData *closestData = nil;
     NSUInteger closestIdx = INT_MAX;
     double minDist = DBL_MAX;
@@ -354,6 +362,7 @@
             if(dist < minDist || (dist == minDist && distY < minDistY)) {
                 minDist = dist;
                 minDistY = distY;
+                closest = datItem;
                 closestData = data;
                 closestIdx = i;
                 closestPos = CGPointMake(xStart + xVal - 3, yStart + yVal - 7);
@@ -361,10 +370,12 @@
         }
     }
     
-    if(closestIdx == INT_MAX)
+    if(closest == nil || (closestData == self.selectedData && closestIdx == self.selectedIdx))
         return;
     
-    LCLineChartDataItem *closest = closestData.getData(closestIdx);
+    self.selectedData = closestData;
+    self.selectedIdx = closestIdx;
+    
     self.infoView.infoLabel.text = closest.dataLabel;
     self.infoView.tapPoint = closestPos;
     [self.infoView sizeToFit];
@@ -403,6 +414,8 @@
 - (void)hideIndicator {
     if(self.deselectedItemCallback)
         self.deselectedItemCallback();
+    
+    self.selectedData = nil;
     
     [UIView animateWithDuration:0.1 animations:^{
         self.infoView.alpha = 0.0;
