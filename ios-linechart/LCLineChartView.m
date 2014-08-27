@@ -308,12 +308,15 @@
                 [data.color setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
                 {
-                    CGFloat h,s,b,a;
+                    CGFloat brightness;
+                    CGFloat r,g,b,a;
                     if(CGColorGetNumberOfComponents([data.color CGColor]) < 3)
-                        [data.color getWhite:&b alpha:&a];
-                    else
-                        [data.color getHue:&h saturation:&s brightness:&b alpha:&a];
-                    if(b <= 0.5)
+                        [data.color getWhite:&brightness alpha:&a];
+                    else {
+                        [data.color getRed:&r green:&g blue:&b alpha:&a];
+                        brightness = 0.299 * r + 0.587 * g + 0.114 * b; // RGB ~> Luma conversion
+                    }
+                    if(brightness <= 0.68) // basically arbitrary, but works well for test cases
                         [[UIColor whiteColor] setFill];
                     else
                         [[UIColor blackColor] setFill];
