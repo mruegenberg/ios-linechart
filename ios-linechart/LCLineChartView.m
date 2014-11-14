@@ -201,7 +201,7 @@
     static CGFloat dashedPattern[] = {4,2};
 
     // draw scale and horizontal lines
-    CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] == 0 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
+    CGFloat heightPerStep = self.ySteps == nil || [self.ySteps count] <= 1 ? availableHeight : (availableHeight / ([self.ySteps count] - 1));
 
     NSUInteger i = 0;
     CGContextSaveGState(c);
