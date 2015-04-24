@@ -61,7 +61,6 @@
 @property LCLegendView *legendView;
 @property LCInfoView *infoView;
 @property UIView *currentPosView;
-@property UILabel *xAxisLabel;
 
 - (BOOL)drawsAnyData;
 

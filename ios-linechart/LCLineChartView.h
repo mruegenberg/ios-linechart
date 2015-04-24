@@ -63,6 +63,7 @@ typedef void(^LCLineChartDeselectedItem)();
 @property BOOL drawsDataPoints; /// Switch to turn off circles on data points. On by default.
 @property BOOL drawsDataLines; /// Switch to turn off lines connecting data points. On by default.
 
+@property (nonatomic, strong) UILabel *xAxisLabel;
 @property (nonatomic, strong) UIFont *legendViewFont;
 @property (nonatomic, strong) UIFont *infoLabelFont;
 @property (strong) UIFont *scaleFont; /// Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].

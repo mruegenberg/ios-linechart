@@ -103,7 +103,8 @@
         LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 400, 500, 300)];
         chartView.yMin = 0;
         chartView.yMax = 6;
-	    chartView.showsIndicator = NO;
+	    chartView.xAxisLabel.font = [UIFont systemFontOfSize:20];
+//	    chartView.showsIndicator = NO;
         chartView.ySteps = @[@"1.0",@"2.0",@"3.0",@"4.0",@"5.0",@"A big label at 6.0"];
         chartView.data = @[d1x,d2x];
         chartView.selectedItemCallback = ^(LCLineChartData *dat, NSUInteger item, CGPoint pos) {
