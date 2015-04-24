@@ -190,6 +190,12 @@
     }
 }
 
+- (void)setLegendViewFont:(UIFont *)legendViewFont
+{
+	_legendViewFont = legendViewFont;
+	self.legendView.titlesFont = _legendViewFont;
+}
+
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
 
@@ -345,7 +351,9 @@
         self.infoView = [[LCInfoView alloc] init];
         [self addSubview:self.infoView];
     }
-
+	if (self.infoLabelFont) {
+		self.infoView.infoLabel.font = self.infoLabelFont;
+	}
     CGPoint pos = [touch locationInView:self];
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;

@@ -27,7 +27,7 @@
         UIColor *color = [self.colors objectForKey:title];
         if(color) {
             [color setFill];
-            CGContextFillEllipseInRect(c, CGRectMake(PADDING + 2, PADDING + round(y) + self.titlesFont.xHeight / 2 + 1, 6, 6));
+            CGContextFillEllipseInRect(c, CGRectMake(PADDING + 2, PADDING + round(y) + self.titlesFont.xHeight / 2 + self.titlesFont.xHeight / 4.0, self.titlesFont.xHeight, self.titlesFont.xHeight));
         }
         [[UIColor whiteColor] set];
         // TODO: replace with new text APIs in iOS 7 only version
@@ -45,6 +45,12 @@
     if(_titlesFont == nil)
         _titlesFont = [UIFont boldSystemFontOfSize:10];
     return _titlesFont;
+}
+
+- (void)setTitlesFont:(UIFont *)titlesFont
+{
+	_titlesFont = titlesFont;
+	[self drawRect:self.bounds];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {

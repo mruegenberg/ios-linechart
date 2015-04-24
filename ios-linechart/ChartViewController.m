@@ -145,6 +145,8 @@
         LCLineChartView *chartView = [[LCLineChartView alloc] initWithFrame:CGRectMake(20, 700, 500, 300)];
         chartView.yMin = 0;
         chartView.yMax = powf(2, 31 / 7) + 0.5;
+	    chartView.infoLabelFont = [UIFont systemFontOfSize:50];
+	    chartView.legendViewFont = [UIFont systemFontOfSize:10];
         chartView.ySteps = @[@"0.0",
                              [NSString stringWithFormat:@"%.02f", chartView.yMax / 2],
                              [NSString stringWithFormat:@"%.02f", chartView.yMax]];
