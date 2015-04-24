@@ -48,7 +48,8 @@
 		1C04F8A517AC402600F8A543 /* LCInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCInfoView.h; sourceTree = "<group>"; };
 		1C04F8A617AC402600F8A543 /* LCInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCInfoView.m; sourceTree = "<group>"; };
 		1C5999D118166CA90031C805 /* LineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
-		E763E74E5B5048B682038C66 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		773B4EC131B54580B4C57C6A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A0FE3CA524F797D5464F5F7B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E88FE8D4A4A24E6E99D658EA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -73,7 +74,7 @@
 				1C04F88217AC0F5A00F8A543 /* ios-linechart */,
 				1C04F87B17AC0F5A00F8A543 /* Frameworks */,
 				1C04F87A17AC0F5A00F8A543 /* Products */,
-				E763E74E5B5048B682038C66 /* Pods.xcconfig */,
+				F51B19205A63B6B1981BA922 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +129,15 @@
 				1C04F89217AC0F5A00F8A543 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F51B19205A63B6B1981BA922 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				773B4EC131B54580B4C57C6A /* Pods.debug.xcconfig */,
+				A0FE3CA524F797D5464F5F7B /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +222,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 		};
 		5609285230ED4CA5BF152DFA /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -326,7 +336,7 @@
 		};
 		1C04F89D17AC0F5A00F8A543 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E763E74E5B5048B682038C66 /* Pods.xcconfig */;
+			baseConfigurationReference = 773B4EC131B54580B4C57C6A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -341,7 +351,7 @@
 		};
 		1C04F89E17AC0F5A00F8A543 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E763E74E5B5048B682038C66 /* Pods.xcconfig */;
+			baseConfigurationReference = A0FE3CA524F797D5464F5F7B /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
