@@ -91,7 +91,7 @@
 
     self.axisLabelColor = [UIColor grayColor];
 
-    self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -3, 50, 20)];
     self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.xAxisLabel.font = [UIFont boldSystemFontOfSize:10];
     self.xAxisLabel.textColor = self.axisLabelColor;
