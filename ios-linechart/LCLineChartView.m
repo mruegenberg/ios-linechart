@@ -160,7 +160,7 @@
 
     [self.xAxisLabel sizeToFit];
     r = self.xAxisLabel.frame;
-    r.origin.y = self.bounds.size.height - X_AXIS_SPACE - PADDING + 2;
+//    r.origin.y = self.bounds.size.height - X_AXIS_SPACE - PADDING + 2;
     self.xAxisLabel.frame = r;
 
     [self bringSubviewToFront:self.legendView];
