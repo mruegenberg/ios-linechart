@@ -91,7 +91,7 @@
 
     self.axisLabelColor = [UIColor grayColor];
 
-    self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    self.xAxisLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -3, 50, 20)];
     self.xAxisLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.xAxisLabel.font = [UIFont boldSystemFontOfSize:10];
     self.xAxisLabel.textColor = self.axisLabelColor;
@@ -160,7 +160,7 @@
 
     [self.xAxisLabel sizeToFit];
     r = self.xAxisLabel.frame;
-    r.origin.y = self.bounds.size.height - X_AXIS_SPACE - PADDING + 2;
+//    r.origin.y = self.bounds.size.height - X_AXIS_SPACE - PADDING + 2;
     self.xAxisLabel.frame = r;
 
     [self bringSubviewToFront:self.legendView];
