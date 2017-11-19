@@ -33,7 +33,7 @@ Just copy these into you project as well.
 
 ios-linechart uses Core Graphics, so you'll need to add `CoreGraphics.framework` to your project.
 
-Even if you don't use Cocoapods, it is recommended to use an official release, since the repository may be unstable in  between releases. Just check out the newest tagged commit.
+Even if you don't use CocoaPods, it is recommended to use an official release, since the repository may be unstable in  between releases. Just check out the newest tagged commit.
 
 
 
@@ -112,11 +112,11 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 
 - *The sample project doesn't compile*
 
-  The sample project, at the moment, needs CocoaPods. Install Cocoapods, then run `pod install` while you are in the ios-linechart directory.
-  
-- *Will the project support bar charts, pie charts, ...?*
+  The sample project, at the moment, needs CocoaPods. Install CocoaPods, then run `pod install` while you are in the ios-linechart directory.
+	
+## Support this project
 
-  No.
+[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/mruegenberg/)
 
 ## Contact
 
