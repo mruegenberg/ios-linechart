@@ -12,6 +12,8 @@
 
 @implementation LCLegendView
 @synthesize titlesFont=_titlesFont;
+@synthesize titles=_titles;
+@synthesize colors=_colors;
 
 #define COLORPADDING 15
 #define PADDING 5
@@ -59,6 +61,30 @@
         w = MAX(w, s.width);
     }
     return CGSizeMake(COLORPADDING + w + 2 * PADDING, h + 2 * PADDING);
+}
+
+- (void)setTitles:(NSArray *)titles {
+    if (titles != _titles) {
+        _titles = titles;
+        [self sizeToFit];
+        [self setNeedsDisplay];
+    }
+}
+
+- (NSArray *)titles {
+    return _titles;
+}
+
+- (void)setColors:(NSDictionary *)colors {
+    if (colors != _colors) {
+        _colors = colors;
+        [self sizeToFit];
+        [self setNeedsDisplay];
+    }
+}
+
+- (NSDictionary *)colors {
+    return _colors;
 }
 
 @end
