@@ -29,6 +29,7 @@
         self.y = y;
         self.xLabel = xLabel;
         self.dataLabel = dataLabel;
+	   self.pointRadius = 11;
     }
     return self;
 }
@@ -60,7 +61,6 @@
 @property LCLegendView *legendView;
 @property LCInfoView *infoView;
 @property UIView *currentPosView;
-@property UILabel *xAxisLabel;
 
 - (BOOL)drawsAnyData;
 
@@ -78,6 +78,8 @@
 @synthesize data=_data;
 
 - (void)setDefaultValues {
+	self.showsDot = YES;
+	self.showsIndicator = YES;
     self.currentPosView = [[UIView alloc] initWithFrame:CGRectMake(PADDING, PADDING, 1 / self.contentScaleFactor, 50)];
     self.currentPosView.backgroundColor = [UIColor colorWithRed:0.7 green:0.0 blue:0.0 alpha:1.0];
     self.currentPosView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -185,6 +187,12 @@
 
         [self setNeedsDisplay];
     }
+}
+
+- (void)setLegendViewFont:(UIFont *)legendViewFont
+{
+	_legendViewFont = legendViewFont;
+	self.legendView.titlesFont = _legendViewFont;
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -304,24 +312,33 @@
                 CGFloat xVal = xStart + round((xRangeLen == 0 ? 0.5 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
                 CGFloat yVal = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
                 [self.backgroundColor setFill];
-                CGContextFillEllipseInRect(c, CGRectMake(xVal - 5.5, yVal - 5.5, 11, 11));
+			  CGFloat radius = datItem.pointRadius;
+			  if (self.showsDot) {
+				 CGContextFillEllipseInRect(c, CGRectMake(xVal - (radius / 2.0), yVal - (radius / 2.0), radius, radius));
+			  }
                 [data.color setFill];
-                CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
-                {
-                    CGFloat brightness;
-                    CGFloat r,g,b,a;
-                    if(CGColorGetNumberOfComponents([data.color CGColor]) < 3)
-                        [data.color getWhite:&brightness alpha:&a];
-                    else {
-                        [data.color getRed:&r green:&g blue:&b alpha:&a];
-                        brightness = 0.299 * r + 0.587 * g + 0.114 * b; // RGB ~> Luma conversion
-                    }
-                    if(brightness <= 0.68) // basically arbitrary, but works well for test cases
-                        [[UIColor whiteColor] setFill];
-                    else
-                        [[UIColor blackColor] setFill];
-                }
-                CGContextFillEllipseInRect(c, CGRectMake(xVal - 2, yVal - 2, 4, 4));
+			  CGFloat fillPointRadius = radius * 0.75;
+			  if (self.showsDot) {
+				  CGContextFillEllipseInRect(c, CGRectMake(xVal - (fillPointRadius / 2.0), yVal - (fillPointRadius / 2.0), fillPointRadius, fillPointRadius));
+			  }
+			  {
+				  CGFloat brightness;
+				  CGFloat r,g,b,a;
+				  if(CGColorGetNumberOfComponents([data.color CGColor]) < 3)
+					  [data.color getWhite:&brightness alpha:&a];
+				  else {
+					  [data.color getRed:&r green:&g blue:&b alpha:&a];
+					  brightness = 0.299 * r + 0.587 * g + 0.114 * b; // RGB ~> Luma conversion
+				  }
+				  if(brightness <= 0.68) // basically arbitrary, but works well for test cases
+					  [[UIColor whiteColor] setFill];
+				  else
+					  [[UIColor blackColor] setFill];
+			  }
+			  if (datItem.fillPoint == NO && self.showsDot) {
+				  CGFloat pitRadius = fillPointRadius * 0.5;
+				  CGContextFillEllipseInRect(c, CGRectMake(xVal - (pitRadius / 2.0), yVal - (pitRadius / 2.0), pitRadius, pitRadius));
+			  }
             } // for
           } // data - draw data points
         } // draw data points
@@ -333,7 +350,9 @@
         self.infoView = [[LCInfoView alloc] init];
         [self addSubview:self.infoView];
     }
-
+	if (self.infoLabelFont) {
+		self.infoView.infoLabel.font = self.infoLabelFont;
+	}
     CGPoint pos = [touch locationInView:self];
     CGFloat xStart = PADDING + self.yAxisLabelsWidth;
     CGFloat yStart = PADDING;
@@ -428,19 +447,27 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self showIndicatorForTouch:[touches anyObject]];
+	if (self.showsIndicator) {
+	    [self showIndicatorForTouch:[touches anyObject]];
+	}
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self showIndicatorForTouch:[touches anyObject]];
+	if (self.showsIndicator) {
+	    [self showIndicatorForTouch:[touches anyObject]];
+	}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self hideIndicator];
+	if (self.showsIndicator) {
+		[self hideIndicator];
+	}
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self hideIndicator];
+	if (self.showsIndicator) {
+		[self hideIndicator];
+	}
 }
 
 
