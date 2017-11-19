@@ -104,6 +104,7 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 
 ## Screenshots
 ![Screenshot 1](doc/screenshot1.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmruegenberg%2Fios-linechart.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmruegenberg%2Fios-linechart?ref=badge_shield)
 
 ![Screenshot 2](doc/screenshot2.png)
 
@@ -122,3 +123,7 @@ The `yMin` and `yMax` properties should be self-evident. `ySteps` is an array of
 ![Travis CI build status](https://api.travis-ci.org/mruegenberg/ios-linechart.png)
 
 Bug reports and pull requests are welcome! Contact me via e-mail or just by opening an issue on GitHub.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmruegenberg%2Fios-linechart.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmruegenberg%2Fios-linechart?ref=badge_large)
